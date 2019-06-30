@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/register.css"/>
+
+    <div th:replace="header :: header-css"/>
+    <title>Register page</title>
+</head>
+<body>
+<div th:replace="header :: header"/>
+<div id="login">
+    <h3 class="text-center text-white pt-5">Registration form</h3>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" >
+
+                    <form id="login-form" class="form" th:action="@{/registerUser}"  th:object="${user}" method="post">
+                        <h3 class="text-center text-info">Registration</h3>
+                        <p class="error" th:text="${commonError}"></p>
+                        <div class="form-group">
+                            <label for="username" class="text-info">Email address:</label><br>
+                            <input type="text" name="user.username" id="username"   th:field="*{username}" class="form-control">
+                            <div class="error" th:errors="*{username}"></div>
+                        </div>
+<!--                        <div class="error" th:errors="*{usernamee}"></div>-->
+                        <div class="form-group">
+                            <label for="password" class="text-info">Password:</label><br>
+                            <input type="password" name="user.pass" id="password" th:field="*{password}" class="form-control">
+                            <div class="error" th:errors="*{password}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="text-info">Confirm password:</label><br>
+                            <input type="password" name="user.pass_2" id="password_2" th:field="*{confirmPassword}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="text-info">City:</label><br>
+                            <input type="text" name="user.city" id="city"   th:field="*{city}" class="form-control">
+                            <div class="error" th:errors="*{city}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="text-info">Address:</label><br>
+                            <input type="text" name="user.address" id="address"   th:field="*{address}" class="form-control">
+                            <div class="error" th:errors="*{address}"></div>
+                        </div>
+                        <div class="form-group">
+<!--                            <label for="remember-me" class="text-info"><span>Remember me </span> -->
+<!--                                <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>-->
+                            <input type="submit"  value="Register me" name="register" class="btn btn-info btn-md" ></br>
+<!--                            <input type="button" value="Go to login" name="backButton"-->
+<!--                                   onClick="javascript:window.location.href='/login'" class="btn btn-info btn-mdn" >-->
+                        </div>
+
+                        <div id="register-link" class="text-right">
+                            </br></br>
+                            <a href="/" th:href="@{/login}" class="text-info">Go to login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
