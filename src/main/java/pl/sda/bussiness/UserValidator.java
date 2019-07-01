@@ -23,6 +23,13 @@ public class UserValidator {
         return null;
     }
 
+    public String notValidChangeData(UserDto dto) {
+        if (checkPasswordsNotEquals(dto)) {
+            return WRONG_PASS_MSG;
+        }
+        return null;
+    }
+
     private boolean checkUserAlreadyExists(UserDto dto) {
         return userRepository.findByUsername(dto.getUsername()).isPresent();
     }

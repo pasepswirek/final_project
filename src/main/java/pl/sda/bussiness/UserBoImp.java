@@ -47,4 +47,29 @@ public class UserBoImp {
         userRepository.save(user);
         System.out.println(userDto);
     }
+
+
+    public void updateUser(UserDto userDto){
+//        User user = new User();
+
+//        user.setUsername(userDto.getUsername());
+//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+//        user.setCreateDate(new Date());
+//        user.setStatus(AccountStatus.ACTIVE);
+//        user.setType(AccountType.NORMAL);
+//        user.setCity(userDto.getCity());
+//        user.setAddress(userDto.getAddress());
+//        List<Role> roles = new ArrayList<>();
+//        roles.add(roleRepository.findByName("USER"));
+//        user.setRoles(roles);
+
+        userRepository.updateData("wp@wp.pl", "Bialystok1234") ;
+        System.out.println(userDto);
+        System.out.println(userDto.getCity());
+    }
+
+    public UserDto getUser(String username) {
+        User user = userRepository.findByUsername(username).get();
+        return new UserDto(user);
+    }
 }

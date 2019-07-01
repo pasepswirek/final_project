@@ -3,6 +3,7 @@ package pl.sda.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,8 +30,9 @@ public class User {
     @Column
     private String address;
 
-    @Column
+    @Column(updatable = false)
     @Temporal(TemporalType.DATE)
+    @CreatedDate
     private Date createDate;
 
     @Column
