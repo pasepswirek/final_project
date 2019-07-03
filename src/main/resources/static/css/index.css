@@ -97,3 +97,7 @@ ul.mail-list li span.mail-message-preview{
 .mail-search{
     border-bottom-color:#7FBCC9!important;
 }
+
+ul.nav navbar-nav navbar-right_1{
+    max-width: 300px;
+}

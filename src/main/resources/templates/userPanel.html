@@ -21,7 +21,7 @@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
 
-                    <form id="login-form" class="form" th:action="@{/saveUserPanel}" th:object="${user}" method="post">
+                    <form id="login-form" class="form" th:action="@{/saveUserPanel/{username}(username=${user.username})}" th:object="${user}" method="post">
 <!--                        <h3 class="text-center text-info">Registration</h3>-->
                         <p class="error" th:text="${commonError}"></p>
                         <div class="form-group">

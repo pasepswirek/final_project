@@ -16,6 +16,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
+
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update User u set u.city = city where u.username =  username ")

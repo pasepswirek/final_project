@@ -13,47 +13,59 @@
 <body>
 <div th:replace="header :: header"/>
 <div id="login">
-    <h3 class="text-center text-white pt-5">Registration form</h3>
+<!--    <h3 class="text-center text-white pt-5">Registration form</h3>-->
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
-                <div id="login-box" >
+                <div id="login-box">
 
-                    <form id="login-form" class="form" th:action="@{/registerUser}"  th:object="${user}" method="post">
-                        <h3 class="text-center text-info">Registration</h3>
+                    <form id="login-form" class="form" th:action="@{/registerUser}" th:object="${user}" method="post">
+                        <h3 class="text-center text-info">Registration form</h3>
                         <p class="error" th:text="${commonError}"></p>
                         <div class="form-group">
                             <label for="username" class="text-info">Email address:</label><br>
-                            <input type="text" name="user.username" id="username"   th:field="*{username}" class="form-control">
+                            <input type="text" name="user.username" id="username" th:field="*{username}"
+                                   class="form-control">
                             <div class="error" th:errors="*{username}"></div>
                         </div>
-<!--                        <div class="error" th:errors="*{usernamee}"></div>-->
+                        <!--                        <div class="error" th:errors="*{usernamee}"></div>-->
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
-                            <input type="password" name="user.pass" id="password" th:field="*{password}" class="form-control">
+                            <input type="password" name="user.pass" id="password" th:field="*{password}"
+                                   class="form-control">
                             <div class="error" th:errors="*{password}"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password" class="text-info">Confirm password:</label><br>
-                            <input type="password" name="user.pass_2" id="password_2" th:field="*{confirmPassword}" class="form-control">
+                            <input type="password" name="user.pass_2" id="password_2" th:field="*{confirmPassword}"
+                                   class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="username" class="text-info">City:</label><br>
-                            <input type="text" name="user.city" id="city"   th:field="*{city}" class="form-control">
+                            <input type="text" name="user.city" id="city" th:field="*{city}" class="form-control">
                             <div class="error" th:errors="*{city}"></div>
                         </div>
                         <div class="form-group">
                             <label for="username" class="text-info">Address:</label><br>
-                            <input type="text" name="user.address" id="address"   th:field="*{address}" class="form-control">
+                            <input type="text" name="user.address" id="address" th:field="*{address}"
+                                   class="form-control">
                             <div class="error" th:errors="*{address}"></div>
                         </div>
                         <div class="form-group">
-<!--                            <label for="remember-me" class="text-info"><span>Remember me </span> -->
-<!--                                <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>-->
-                            <input type="submit"  value="Register me" name="register" class="btn btn-info btn-md" ></br>
-<!--                            <input type="button" value="Go to login" name="backButton"-->
-<!--                                   onClick="javascript:window.location.href='/login'" class="btn btn-info btn-mdn" >-->
+                            <!--                            <label for="username" class="text-info">City:</label><br>-->
+<!--                            <button style="display:block;width:120px; height:30px;"-->
+<!--                                    onclick="document.getElementById('avatar').click()" class="btn btn-info btn-md">Your avatar-->
+<!--                            </button>-->
+                            <input type="file" value="Add foto" name="user.avatar" id="avatar" th:field="*{avatar}"
+                                   accept="image/*"
+
+                                   class="btn btn-info btn-md">
+<!--                            style="display:none"-->
+                            <!--                            <div class="error" th:errors="*{city}"></div>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Register me" name="register" class="btn btn-info btn-md"></br>
                         </div>
 
                         <div id="register-link" class="text-right">

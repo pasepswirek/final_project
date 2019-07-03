@@ -14,10 +14,7 @@
 </head>
 <body>
 <div th:fragment="header">
-    <!-- this is header -->
-<!--    <div th:if="${users !=null}">-->
-<!--        <span th:utext="${users}"></span>-->
-<!--    </div>-->
+
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -28,6 +25,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
                 <ul class="nav navbar-nav">
+
                     <li>
                     <a href="/" th:href="@{/userPanel}" class="text-info">User Panel</a>
 
@@ -35,9 +33,18 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> [[${#httpServletRequest.remoteUser}]]</a>
-                    </li>
-                    <li><a th:href="@{/logout}">Logout</a></li>
+<!--                    <li>-->
+                        <!--                    <img th:if="${#authentication.principal.image}"-->
+<!--                        <img src="${user.avatar}" width="50" height="50"  />-->
+<!--                    <img th:src="*{'/img/' + user.user_id}" width="50" height="50"/>-->
+<!--                    </li>-->
+<!--                    <li>-->
+                        <a href="#"><span  th:text="${#authentication.name}"></span></a>
+<!--                    </li>-->
+<!--                    <li>-->
+                        <a th:href="@{/logout}">Logout</a>
+<!--                    </li>-->
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

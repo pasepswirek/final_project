@@ -11,7 +11,33 @@
 </head>
 <body>
 <div th:replace="header :: header"/>
-<!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
+
+<!--<h3><p class="text-center text-white pt-5">Konto użytkownika</p></h3>-->
+<h1 th:inline="text">Hello <span  th:text="${#authentication.name}"></span>!</h1>
+
+<div >
+    <div  th:each="user: ${users}">
+    <div>
+        <div class="card">
+<!--            <img class="card-img-top" th:src="@{'user/image/' + @{product.image}}">-->
+<!--            <img class="card-img-top" th:src="${user.avatar}">-->
+<!--            <div th:if="${user.avatar !=null}">-->
+<!--                <img th:src="@{/image/${id}}" /></div></br>-->
+                <img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></div></br>
+<!--&lt;!&ndash;                <img class="card-img-top" th:src="@{image/${user.avatar}}"></br></div>&ndash;&gt;${user.avatar-->
+<!--            <div  th:if="${user !=null}">-->
+                User id:  <span th:utext="${user.id}"></span></br>
+                User name:  <span th:utext="${user.username}"></span></br>
+                User city:  <span  th:utext="${user.city}"></span></br>
+                User Address: <span  th:utext="${user.address}"></span></br>
+            </br></br>
+            </div>
+<!--        </div>-->
+    </div>
+</div>
+
+<img th:src="@{/image/{id}(id=${17})}" th:filed="*{avatar}" width="50" height="50"/></div>
+
 <!--<ul class="nav navbar-nav">-->
 <!--    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>-->
 <!--</ul>-->
@@ -46,5 +72,6 @@
 <!--    &lt;!&ndash; /.container-fluid &ndash;&gt;-->
 <!--</nav>-->
 index.html
+
 </body>
 </html>

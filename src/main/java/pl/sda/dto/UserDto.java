@@ -16,15 +16,15 @@ public class UserDto {
 
 
     @Email(message = "Zły format emaila")
-    @NotEmpty
+    @NotBlank(message = "Pole nie może być puste")
     private String username;
 
-    @NotEmpty
+    @NotBlank(message = "Pole nie może być puste")
     @Pattern(regexp = "^.{5,}$", message = "Hasło jest za krótkie")
     private String password;
 
 
-    @NotEmpty
+    @NotBlank(message = "Pole nie może być puste")
     private String confirmPassword;
 
     @NotBlank(message = "Pole nie może być puste")

@@ -57,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")//nazwa textbox uzytkownika
                 .passwordParameter("pass")//nazwa textbox password
                 .defaultSuccessUrl("/index", true)//jak ok do do st. głownej
-                .failureUrl("/error");//jak błąd logowania to do strony z błedem
+                .failureUrl("/error")//jak błąd logowania to do strony z błedem
+                .and().rememberMe().tokenValiditySeconds(604800).key("userKay");
         // .failureHandler(authenticationFailureHandler())
 
         http.csrf().disable()
@@ -70,11 +71,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
 
     }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/register**","/resources/**", "/static/**", "/css/**", "/js/**");
+                .antMatchers("/register**", "/resources/**", "/static/**", "/css/**", "/js/**");
     }
 
     @Bean

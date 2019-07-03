@@ -17,7 +17,7 @@ import pl.sda.repository.UserRepository;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/userPanel")
+//@RequestMapping("/userPanel")
 public class UserPanelController {
 
     private static final String USER_CHANGE_DATA_CORRECTLY = "Dane poprawnie zmienione. Zaloguj się ponownie";
@@ -29,11 +29,11 @@ public class UserPanelController {
     private UserValidator validator;
 
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
 
-    @GetMapping()
-    public String user(@Valid @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult, Model model) {
+    @GetMapping("/userPanel")
+    public String user(@Valid   @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult, Model model) {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -43,21 +43,37 @@ public class UserPanelController {
         }
         model.addAttribute("user", userBo.getUser(username));
 
+
         return "userPanel";
     }
 
-    @PostMapping("saveUserPanel")
+
+
+        @PostMapping("saveUserPanel")
     public   String saveUser(@Valid  @RequestBody @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult,
                            Model model) {
         if (bindingResult.hasErrors() || validate(user, model)) {
             return "userPanel";
         }
 
-        userBo.updateUser(user);
-//        saveUser(user);
+//        userBo.updateUser(user);
+        userBo.saveUser(user);
         model.addAttribute("userChangeDateCorrectly", USER_CHANGE_DATA_CORRECTLY);
         return "login";
     }
+//    @PostMapping("saveUserPanel/{id}")
+//    public String updateStudent(@PathVariable("id") long id,
+//                                @Valid @ModelAttribute(name = "user") User user, BindingResult result,
+//                                Model model) {
+//        if (result.hasErrors()) {
+//            user.setId(id);
+//            return "userPanel";
+//        }
+//        userRepository.save(user);
+////        userBo.saveUser(user);
+//        model.addAttribute("userChangeDateCorrectly", USER_CHANGE_DATA_CORRECTLY);
+//        return "login";
+//    }
 
 //    @PutMapping(value="/{id}") // Validates the request body as a Student type
 //    public ResponseEntity<User> updateStudent(@Valid @RequestBody User user, @PathVariable long id){
@@ -70,7 +86,6 @@ public class UserPanelController {
 //    }
 
 
-
     private boolean validate(UserDto user, Model model) {
         String result = validator.notValidChangeData(user);
         if (result != null) {
@@ -78,10 +93,5 @@ public class UserPanelController {
         }
         return result != null;
     }
-
-//    private void initModel(Model model) {
-//        model.addAttribute("user", new UserDto());
-//    }
-
 
 }
