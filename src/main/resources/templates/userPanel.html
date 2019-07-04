@@ -21,8 +21,10 @@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
 
-                    <form id="login-form" class="form" th:action="@{/saveUserPanel/{username}(username=${user.username})}" th:object="${user}" method="post">
-<!--                        <h3 class="text-center text-info">Registration</h3>-->
+                    <form id="login-form" class="form"
+                          th:action="@{/saveUserPanel/{username}(username=${user.username})}" th:object="${user}"
+                          method="post">
+                        <!--                        <input type="hidden"  th:value="${id}"  th:field="*{id}" />-->
                         <p class="error" th:text="${commonError}"></p>
                         <div class="form-group">
 
@@ -32,7 +34,6 @@
                             <div class="error" th:errors="*{username}"></div>
 
                         </div>
-                        <!--                        <div class="error" th:errors="*{usernamee}"></div>-->
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
                             <input type="password" name="user.pass" id="password" th:field="*{password}"
@@ -47,25 +48,21 @@
                         </div>
                         <div class="form-group">
                             <label for="city" class="text-info">City:</label><br>
-                            <input type="text" name="user.city" id="city"   th:field="*{city}" class="form-control">
+                            <input type="text" name="user.city" id="city" th:field="*{city}" class="form-control">
                             <div class="error" th:errors="*{city}"></div>
                         </div>
                         <div class="form-group">
                             <label for="address" class="text-info">Address:</label><br>
-                            <input type="text" name="user.address" id="address"   th:field="*{address}" class="form-control">
+                            <input type="text" name="user.address" id="address" th:field="*{address}"
+                                   class="form-control">
                             <div class="error" th:errors="*{address}"></div>
                         </div>
                         <div class="form-group">
-                            <!--                            <label for="remember-me" class="text-info"><span>Remember me </span> -->
-                            <!--                                <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>-->
                             <input type="submit" value="Save change" name="register" class="btn btn-info btn-md"></br>
                             <!--                            <input type="button" value="Go to login" name="backButton"-->
                             <!--                                   onClick="javascript:window.location.href='/login'" class="btn btn-info btn-mdn" >-->
                         </div>
-<!--                        <div id="register-link" class="text-right">-->
-<!--                            </br></br>-->
-<!--                            <a href="/" th:href="@{/login}" class="text-info">Go to login</a>-->
-<!--                        </div>-->
+
                     </form>
                 </div>
             </div>

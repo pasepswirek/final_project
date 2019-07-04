@@ -33,18 +33,18 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController {
 
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private UserBoImp userBo;
 
-    @GetMapping(value ="/image/{id}", produces = MediaType.IMAGE_PNG_VALUE)
-    public void showuserImage(@RequestBody @PathVariable("id") long id,  HttpServletResponse response) throws IOException {
+    @GetMapping(value = "/image/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+    public void showuserImage(@RequestBody @PathVariable("id") long id, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg"); // Or whatever format you wanna use
         UserDto user = userBo.getId(id);
 //        byte[] imageContent = user.getAvatar();
 
-       InputStream is = new ByteArrayInputStream(user.getAvatar());
+        InputStream is = new ByteArrayInputStream(user.getAvatar());
         IOUtils.copy(is, response.getOutputStream());
 //        Blob ph = user.getAvatar();
 //        byte[] imageContent = user.getAvatar();//get image from DAO based on id
@@ -71,23 +71,11 @@ public class HomeController {
 //    }
 
 
-
-
     @GetMapping("/index")
-    public String getUser( Model model) {
+    public String getUser(Model model) {
         model.addAttribute("users", userRepository.findAll());
         return "index";
     }
-
-//    @GetMapping("/index/{id}")
-//    public String getUser(@PathVariable("id") long id,  Model model, HttpServletResponse response) throws IOException {
-////        UserDto user = userBo.getByteToImage(id, response);
-//
-//        model.addAttribute("users", userRepository.findAll());
-////        System.out.println(user);
-//        return "index";
-//    }
-
 
 
 }

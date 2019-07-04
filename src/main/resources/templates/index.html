@@ -12,37 +12,37 @@
 <body>
 <div th:replace="header :: header"/>
 <center>
-<!--<h3><p class="text-center text-white pt-5">Konto użytkownika</p></h3>-->
-<h1 th:inline="text">Hello <span  th:text="${#authentication.name}"></span>!</h1>
+    <!--<h3><p class="text-center text-white pt-5">Konto użytkownika</p></h3>-->
+    <h1 th:inline="text">Hello <span th:text="${#authentication.name}"></span>!</h1>
 
 
-<!--<img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></div></br>-->
+    <!--<img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></div></br>-->
 
 
-<table id="t01" border="2" width="70%" cellpadding="2">
-    <thead>
-    <th>User id</th>
-    <th>User email</th>
-    <th>City </th>
-    <th>Addres</th>
-    <th>Edit</th>
-    </thead>
-    <tbody>
-    <tr th:each="user: ${users}">
-        <span th:if="${users.empty}">No users available</span>
+    <table id="t01" border="2" width="70%" cellpadding="2">
+        <thead>
+        <th>User id</th>
+        <th>User email</th>
+        <th>City</th>
+        <th>Addres</th>
+        <th>Edit</th>
+        </thead>
+        <tbody>
+        <tr th:each="user: ${users}">
+            <span th:if="${users.empty}">No users available</span>
 
-    <td th:utext="${user.id}"></td>
-    <td th:utext="${user.username}"></td>
-    <td th:utext="${user.city}"></td>
-    <td th:utext="${user.address}"></td>
-        <td> <a href="/" th:href="@{'/editUser/' + ${user.id}}" ><font color="red"/> Edit</a></td>
-<!--        <td><img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></td>-->
-    </tr>
+            <td th:utext="${user.id}"></td>
+            <td th:utext="${user.username}"></td>
+            <td th:utext="${user.city}"></td>
+            <td th:utext="${user.address}"></td>
+            <td><a href="/" th:href="@{'/editUser/' + ${user.id}}"><font color="red"/> Edit</a></td>
+            <!--        <td><img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></td>-->
+        </tr>
 
-    </tbody>
+        </tbody>
 
 
-</table>
+    </table>
 </center>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class UserPanelController {
 
 
     @GetMapping("/userPanel")
-    public String user(@Valid   @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult, Model model) {
+    public String user(@Valid @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult, Model model) {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -48,42 +48,17 @@ public class UserPanelController {
     }
 
 
-
-        @PostMapping("saveUserPanel")
-    public   String saveUser(@Valid  @RequestBody @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult,
+    @PostMapping("saveUserPanel")
+    public String saveUser(@Valid @RequestBody @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult,
                            Model model) {
         if (bindingResult.hasErrors() || validate(user, model)) {
             return "userPanel";
         }
 
-//        userBo.updateUser(user);
         userBo.saveUser(user);
         model.addAttribute("userChangeDateCorrectly", USER_CHANGE_DATA_CORRECTLY);
         return "login";
     }
-//    @PostMapping("saveUserPanel/{id}")
-//    public String updateStudent(@PathVariable("id") long id,
-//                                @Valid @ModelAttribute(name = "user") User user, BindingResult result,
-//                                Model model) {
-//        if (result.hasErrors()) {
-//            user.setId(id);
-//            return "userPanel";
-//        }
-//        userRepository.save(user);
-////        userBo.saveUser(user);
-//        model.addAttribute("userChangeDateCorrectly", USER_CHANGE_DATA_CORRECTLY);
-//        return "login";
-//    }
-
-//    @PutMapping(value="/{id}") // Validates the request body as a Student type
-//    public ResponseEntity<User> updateStudent(@Valid @RequestBody User user, @PathVariable long id){
-//        // Finds student by id, maps it's content, updates new values and save. Throws an exception if not found.
-//        return userRepository.findById(id).map((toUpdate) -> {
-//            toUpdate.setCity((user.getCity()));
-//            User update = userRepository.save(toUpdate);
-//            return ResponseEntity.ok().body(update);
-//        }).orElse(ResponseEntity.notFound().build());
-//    }
 
 
     private boolean validate(UserDto user, Model model) {
