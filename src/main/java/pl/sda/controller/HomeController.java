@@ -38,20 +38,20 @@ public class HomeController {
     @Autowired
     private UserBoImp userBo;
 
-//    @GetMapping(value ="/image/{id}", produces = MediaType.IMAGE_PNG_VALUE)
-//    public void showuserImage(@RequestBody @PathVariable("id") long id,  HttpServletResponse response) throws IOException {
-//        response.setContentType("image/jpeg"); // Or whatever format you wanna use
-//        UserDto user = userBo.getId(id);
+    @GetMapping(value ="/image/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+    public void showuserImage(@RequestBody @PathVariable("id") long id,  HttpServletResponse response) throws IOException {
+        response.setContentType("image/jpeg"); // Or whatever format you wanna use
+        UserDto user = userBo.getId(id);
 //        byte[] imageContent = user.getAvatar();
-//
-//       InputStream is = new ByteArrayInputStream(user.getAvatar());
-//        IOUtils.copy(is, response.getOutputStream());
-////        Blob ph = user.getAvatar();
-////        byte[] imageContent = user.getAvatar();//get image from DAO based on id
-////        final HttpHeaders headers = new HttpHeaders();
-////        headers.setContentType(MediaType.IMAGE_PNG);
-////        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-//    }
+
+       InputStream is = new ByteArrayInputStream(user.getAvatar());
+        IOUtils.copy(is, response.getOutputStream());
+//        Blob ph = user.getAvatar();
+//        byte[] imageContent = user.getAvatar();//get image from DAO based on id
+//        final HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.IMAGE_PNG);
+//        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+    }
 
 //    @RequestMapping(value = "/{id}")
 //    public ModelAndView home(@RequestBody @PathVariable("id") long id)  throws IOException {

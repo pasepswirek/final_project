@@ -11,68 +11,38 @@
 </head>
 <body>
 <div th:replace="header :: header"/>
-
+<center>
 <!--<h3><p class="text-center text-white pt-5">Konto użytkownika</p></h3>-->
 <h1 th:inline="text">Hello <span  th:text="${#authentication.name}"></span>!</h1>
 
-<div >
-    <div  th:each="user: ${users}">
-    <div>
-        <div class="card">
-<!--            <img class="card-img-top" th:src="@{'user/image/' + @{product.image}}">-->
-<!--            <img class="card-img-top" th:src="${user.avatar}">-->
-<!--            <div th:if="${user.avatar !=null}">-->
-<!--                <img th:src="@{/image/${id}}" /></div></br>-->
-                <img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></div></br>
-<!--&lt;!&ndash;                <img class="card-img-top" th:src="@{image/${user.avatar}}"></br></div>&ndash;&gt;${user.avatar-->
-<!--            <div  th:if="${user !=null}">-->
-                User id:  <span th:utext="${user.id}"></span></br>
-                User name:  <span th:utext="${user.username}"></span></br>
-                User city:  <span  th:utext="${user.city}"></span></br>
-                User Address: <span  th:utext="${user.address}"></span></br>
-        <a href="/" th:href="@{/editUser}" class="text-info">Edit user</a>
-            </br></br>
-            </div>
-<!--        </div>-->
-    </div>
-</div>
 
-<img th:src="@{/image/{id}(id=${17})}" th:filed="*{avatar}" width="50" height="50"/></div>
-
-<!--<ul class="nav navbar-nav">-->
-<!--    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>-->
-<!--</ul>-->
-
-<!--<div th:if="${users !=null}">-->
-<!--    <span th:utext="${users}"></span>-->
-<!--</div>-->
-<!--<nav class="navbar navbar-default navbar-static-top" role="navigation">-->
-<!--    <div class="container">-->
-<!--        <div class="navbar-header">-->
-<!--            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span>-->
-
-<!--            </button>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-<!--        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" sec:authorize="isAuthenticated()">-->
-<!--            <ul>-->
-<!--            <li>-->
-<!--                <a href="/" th:href="@{/userPanel}" class="text-info">User Panel</a>-->
-<!--                                    </li>-->
-<!--                </ul>-->
+<!--<img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></div></br>-->
 
 
-<!--            <ul class="nav navbar-nav navbar-right">-->
-<!--                <li><a href="#"><span class="glyphicon glyphicon-user"></span> [[${#httpServletRequest.remoteUser}]]</a>-->
-<!--                </li>-->
-<!--                <li><a th:href="@{/logout}">Logout</a></li>-->
-<!--            </ul>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-<!--    </div>-->
-<!--    &lt;!&ndash; /.container-fluid &ndash;&gt;-->
-<!--</nav>-->
-index.html
+<table id="t01" border="2" width="70%" cellpadding="2">
+    <thead>
+    <th>User id</th>
+    <th>User email</th>
+    <th>City </th>
+    <th>Addres</th>
+    <th>Edit</th>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${users}">
+        <span th:if="${users.empty}">No users available</span>
 
+    <td th:utext="${user.id}"></td>
+    <td th:utext="${user.username}"></td>
+    <td th:utext="${user.city}"></td>
+    <td th:utext="${user.address}"></td>
+        <td> <a href="/" th:href="@{'/editUser/' + ${user.id}}" ><font color="red"/> Edit</a></td>
+<!--        <td><img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></td>-->
+    </tr>
+
+    </tbody>
+
+
+</table>
+</center>
 </body>
 </html>

@@ -1,10 +1,7 @@
 package pl.sda.bussiness;
 
 
-import org.apache.commons.io.IOUtils;
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.dto.UserDto;
@@ -15,13 +12,10 @@ import pl.sda.model.User;
 import pl.sda.repository.RoleRepository;
 import pl.sda.repository.UserRepository;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserBoImp {
@@ -34,13 +28,11 @@ public class UserBoImp {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-//    byte[] image = new byte[] { 1, 2, 3 };
+
 
     public void saveUser(UserDto userDto){
 
         User user = new User();
-
-
 
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -49,7 +41,6 @@ public class UserBoImp {
         user.setType(AccountType.NORMAL);
         user.setCity(userDto.getCity());
         user.setAddress(userDto.getAddress());
-//        user.setAvatar(userDto.getAvatar());
         user.setAvatar(getImageByByte(userDto));
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.findByName("USER"));
@@ -57,7 +48,7 @@ public class UserBoImp {
 
         userRepository.save(user);
         System.out.println(userDto);
-//        System.out.println(getImageByByte(userDto));
+
     }
 
 
@@ -71,6 +62,11 @@ public class UserBoImp {
         User user = userRepository.findById(id).get();
         return new UserDto(user);
     }
+
+    public Optional<User> getId2(long id) {
+        return userRepository.findById(id);
+    }
+
 
     public byte[] getImageByByte(UserDto userDto){
 
