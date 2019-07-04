@@ -38,27 +38,27 @@ public class HomeController {
     @Autowired
     private UserBoImp userBo;
 
-    @GetMapping(value ="/image/{id}", produces = MediaType.IMAGE_PNG_VALUE)
-    public void showuserImage(@RequestBody @PathVariable("id") long id,  HttpServletResponse response) throws IOException {
-        response.setContentType("image/jpeg"); // Or whatever format you wanna use
-        UserDto user = userBo.getId(id);
-        byte[] imageContent = user.getAvatar();
+//    @GetMapping(value ="/image/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+//    public void showuserImage(@RequestBody @PathVariable("id") long id,  HttpServletResponse response) throws IOException {
+//        response.setContentType("image/jpeg"); // Or whatever format you wanna use
+//        UserDto user = userBo.getId(id);
+//        byte[] imageContent = user.getAvatar();
+//
+//       InputStream is = new ByteArrayInputStream(user.getAvatar());
+//        IOUtils.copy(is, response.getOutputStream());
+////        Blob ph = user.getAvatar();
+////        byte[] imageContent = user.getAvatar();//get image from DAO based on id
+////        final HttpHeaders headers = new HttpHeaders();
+////        headers.setContentType(MediaType.IMAGE_PNG);
+////        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+//    }
 
-       InputStream is = new ByteArrayInputStream(user.getAvatar());
-        IOUtils.copy(is, response.getOutputStream());
-//        Blob ph = user.getAvatar();
-//        byte[] imageContent = user.getAvatar();//get image from DAO based on id
-//        final HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.IMAGE_PNG);
-//        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/{id}")
-    public ModelAndView home(@RequestBody @PathVariable("id") long id)  throws IOException {
-        ModelAndView view = new ModelAndView("index");
-        view.addObject("id", id);
-        return view;
-    }
+//    @RequestMapping(value = "/{id}")
+//    public ModelAndView home(@RequestBody @PathVariable("id") long id)  throws IOException {
+//        ModelAndView view = new ModelAndView("index");
+//        view.addObject("id", id);
+//        return view;
+//    }
 //
 //    @RequestMapping(value = "/image/{image_id}", produces = MediaType.IMAGE_PNG_VALUE, method = RequestMethod.GET)
 //    public ResponseEntity<byte[]> getImage(@PathVariable("image_id") Long imageId) throws IOException {
@@ -80,11 +80,11 @@ public class HomeController {
     }
 
 //    @GetMapping("/index/{id}")
-//    public String getUser(@PathVariable("id") long id,  Model model) {
-//        UserDto user = userBo.getId(id);
+//    public String getUser(@PathVariable("id") long id,  Model model, HttpServletResponse response) throws IOException {
+////        UserDto user = userBo.getByteToImage(id, response);
 //
-//        model.addAttribute("user", user);
-//        System.out.println(user);
+//        model.addAttribute("users", userRepository.findAll());
+////        System.out.println(user);
 //        return "index";
 //    }
 

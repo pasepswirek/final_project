@@ -1,6 +1,8 @@
 package pl.sda.bussiness;
 
 
+import org.apache.commons.io.IOUtils;
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,10 +16,9 @@ import pl.sda.repository.RoleRepository;
 import pl.sda.repository.UserRepository;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,11 +34,13 @@ public class UserBoImp {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
+//    byte[] image = new byte[] { 1, 2, 3 };
 
     public void saveUser(UserDto userDto){
 
         User user = new User();
+
+
 
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -47,35 +50,16 @@ public class UserBoImp {
         user.setCity(userDto.getCity());
         user.setAddress(userDto.getAddress());
 //        user.setAvatar(userDto.getAvatar());
-        user.setAvatar(getImage(userDto));
+        user.setAvatar(getImageByByte(userDto));
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.findByName("USER"));
         user.setRoles(roles);
 
         userRepository.save(user);
         System.out.println(userDto);
-        System.out.println(getImage(userDto));
+//        System.out.println(getImageByByte(userDto));
     }
 
-
-    public void updateUser(UserDto userDto){
-//        User user = new User();
-
-//        user.setUsername(userDto.getUsername());
-//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        user.setCreateDate(new Date());
-//        user.setStatus(AccountStatus.ACTIVE);
-//        user.setType(AccountType.NORMAL);
-//        user.setCity(userDto.getCity());
-//        user.setAddress(userDto.getAddress());
-//        List<Role> roles = new ArrayList<>();
-//        roles.add(roleRepository.findByName("USER"));
-//        user.setRoles(roles);
-
-        userRepository.updateData("wp@wp.pl", "Bialystok1234") ;
-        System.out.println(userDto);
-        System.out.println(userDto.getCity());
-    }
 
     public UserDto getUser(String username) {
         User user = userRepository.findByUsername(username).get();
@@ -88,8 +72,7 @@ public class UserBoImp {
         return new UserDto(user);
     }
 
-    public byte[] getImage(UserDto userDto){
-
+    public byte[] getImageByByte(UserDto userDto){
 
        if(userDto.getAvatar() != null){
         byte[] image = new byte[userDto.getAvatar().length] ;
@@ -98,5 +81,17 @@ public class UserBoImp {
        }
        return null ;
     }
+//
+//    public void getByteToImage(long id,  HttpServletResponse response) throws IOException {
+//        User user = userRepository.findById(id).get();
+//
+//        response.setContentType("image/jpeg");
+//        byte[] bytes = user.getAvatar();
+//        IOUtils.copy(new ByteArrayInputStream(bytes), response.getOutputStream());
+//
+////        InputStream is = new ByteArrayInputStream(bytes);
+////        IOUtils.copy(is, response.getOutputStream());
+//
+//    }
 
 }

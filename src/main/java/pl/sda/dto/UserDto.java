@@ -4,12 +4,10 @@ import pl.sda.model.AccountStatus;
 import pl.sda.model.AccountType;
 import pl.sda.model.User;
 
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import java.util.Arrays;
+import java.sql.Blob;
 import java.util.Date;
 
 public class UserDto {
@@ -37,6 +35,7 @@ public class UserDto {
     private Date createDate;
 
     private AccountStatus status;
+
 
     private byte[] avatar;
 
@@ -101,6 +100,7 @@ public class UserDto {
         this.status = status;
     }
 
+
     public byte[] getAvatar() {
         return avatar;
     }
@@ -127,7 +127,7 @@ public class UserDto {
                 ", address='" + address + '\'' +
                 ", createDate=" + createDate +
                 ", status=" + status +
-                ", avatar=" + Arrays.toString(avatar) +
+                ", avatar=" + avatar +
                 ", type=" + type +
                 '}';
     }
