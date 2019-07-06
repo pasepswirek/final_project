@@ -45,18 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //zabezpieczenie przed wejsciem na poszczególne strony
         http.authorizeRequests()
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/dba/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
+//                .antMatchers("/","/userHome/").access("hasRole('USER')")
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/dba/**").access("hasRole('ADMIN') or hasRole('DBA')")
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/register*").permitAll()
                 .anyRequest().authenticated();
+//                and().csrf().disable();
 
         http.formLogin()
                 .loginPage("/login")//strona z logowaniem
                 .loginProcessingUrl("/appLogin")//wymagane ale obsługa w tle
                 .usernameParameter("username")//nazwa textbox uzytkownika
                 .passwordParameter("pass")//nazwa textbox password
-                .defaultSuccessUrl("/index", true)//jak ok do do st. głownej
+                .defaultSuccessUrl("/index" , true)//jak ok do do st. głownej
                 .failureUrl("/error")//jak błąd logowania to do strony z błedem
                 .and().rememberMe().tokenValiditySeconds(604800).key("userKay");
         // .failureHandler(authenticationFailureHandler())

@@ -22,7 +22,7 @@
                 <div id="login-box" class="col-md-12">
 
                     <form id="login-form" class="form"
-                          th:action="@{/saveUserPanel/{username}(username=${user.username})}" th:object="${user}"
+                          th:action="@{/saveUserPanel}" th:object="${user}"
                           method="post">
                         <!--                        <input type="hidden"  th:value="${id}"  th:field="*{id}" />-->
                         <p class="error" th:text="${commonError}"></p>

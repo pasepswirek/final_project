@@ -17,10 +17,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByUsername(String username);
         User findUserById(Long id);
 
-    @Transactional
-    @Modifying(clearAutomatically = true)
-    @Query("update User u set u.city = city where u.username =  username ")
-    void updateData(@Param("username") String username , @Param("city") String city);
+//    @Transactional
+//    @Modifying(clearAutomatically = true)
+//    @Query("update User u set u.city = city where u.username =  username ")
+//    void updateData(@Param("username") String username , @Param("city") String city);
 
 //    @Modifying
 //    @Query("update User u set u.city = city where u.user_is =  user_id ")

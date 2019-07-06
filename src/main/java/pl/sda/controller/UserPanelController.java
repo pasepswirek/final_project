@@ -55,7 +55,7 @@ public class UserPanelController {
             return "userPanel";
         }
 
-        userBo.saveUser(user);
+        userBo.updateUser(user);
         model.addAttribute("userChangeDateCorrectly", USER_CHANGE_DATA_CORRECTLY);
         return "login";
     }

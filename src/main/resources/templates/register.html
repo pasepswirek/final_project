@@ -19,7 +19,7 @@
                 <div id="login-box">
 
                     <form id="login-form" class="form" th:action="@{/registerUser}" th:object="${user}" method="post">
-                        <input type="hidden" th:value="${id}" th:field="*{id}"/>
+<!--                        <input type="hidden" th:value="${id}" th:field="*{id}"/>-->
                         <h3 class="text-center text-info">Registration form</h3>
                         <p class="error" th:text="${commonError}"></p>
                         <div class="form-group">

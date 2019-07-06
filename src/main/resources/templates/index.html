@@ -25,6 +25,9 @@
         <th>User email</th>
         <th>City</th>
         <th>Addres</th>
+        <th>Status</th>
+        <th>Account type</th>
+        <th>Creation date</th>
         <th>Edit</th>
         </thead>
         <tbody>
@@ -35,7 +38,10 @@
             <td th:utext="${user.username}"></td>
             <td th:utext="${user.city}"></td>
             <td th:utext="${user.address}"></td>
-            <td><a href="/" th:href="@{'/editUser/' + ${user.id}}"><font color="red"/> Edit</a></td>
+            <td th:utext="${user.status}"></td>
+            <td th:utext="${user.type}"></td>
+            <td th:utext="${user.createDate}"></td>
+            <td><a href="/" th:href="@{'/editUser' + ${user.id}}"><font color="red"/> Edit</a></td>
             <!--        <td><img th:src="@{/image/{id}(id=${user.id})}" th:filed="*{avatar}" width="50" height="50"/></td>-->
         </tr>
 

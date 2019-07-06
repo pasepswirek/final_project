@@ -71,7 +71,7 @@ public class HomeController {
 //    }
 
 
-    @GetMapping("/index")
+    @GetMapping(value = "/index")
     public String getUser(Model model) {
         model.addAttribute("users", userRepository.findAll());
         return "index";

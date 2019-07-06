@@ -15,7 +15,7 @@ import pl.sda.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UserBoImp {
@@ -63,10 +63,6 @@ public class UserBoImp {
         return new UserDto(user);
     }
 
-    public Optional<User> getId2(long id) {
-        return userRepository.findById(id);
-    }
-
 
     public byte[] getImageByByte(UserDto userDto){
 
@@ -77,6 +73,26 @@ public class UserBoImp {
        }
        return null ;
     }
+
+    public void updateUser(UserDto dto) {
+        User user = userRepository.findByUsername(dto.getUsername()).get();
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setCity(dto.getCity());
+        user.setAddress(dto.getAddress());
+        userRepository.save(user);
+    }
+
+    public void updateUserByAdmin(UserDto dto) {
+        User user = userRepository.findByUsername(dto.getUsername()).get();
+        user.setStatus(dto.getStatus());
+        user.setType(dto.getType());
+        userRepository.save(user);
+    }
+
+//    public Role getRole(String username){
+//        Role role = roleRepository.findByUserName(username);
+//        return   role;
+//    }
 //
 //    public void getByteToImage(long id,  HttpServletResponse response) throws IOException {
 //        User user = userRepository.findById(id).get();
