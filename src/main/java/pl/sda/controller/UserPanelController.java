@@ -1,7 +1,6 @@
 package pl.sda.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -11,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.bussiness.UserBoImp;
 import pl.sda.bussiness.UserValidator;
 import pl.sda.dto.UserDto;
-import pl.sda.model.User;
-import pl.sda.repository.UserRepository;
+
 
 import javax.validation.Valid;
 
@@ -27,9 +25,6 @@ public class UserPanelController {
 
     @Autowired
     private UserValidator validator;
-
-    @Autowired
-    private UserRepository userRepository;
 
 
     @GetMapping("/userPanel")

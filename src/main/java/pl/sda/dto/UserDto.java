@@ -2,6 +2,7 @@ package pl.sda.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 import pl.sda.model.AccountStatus;
 import pl.sda.model.AccountType;
 import pl.sda.model.User;
@@ -9,7 +10,6 @@ import pl.sda.model.User;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.sql.Blob;
 import java.util.Date;
 
 @Getter @Setter
@@ -36,12 +36,8 @@ public class UserDto {
 
 
     private Date createDate;
-
     private AccountStatus status;
-
-
     private byte[] avatar;
-
     private AccountType type;
 
 
@@ -68,7 +64,7 @@ public class UserDto {
         this.username = user.getUsername();
         this.city = user.getCity();
         this.address = user.getAddress();
-        this.avatar = user.getAvatar();
+        this.avatar =user.getAvatar();
         this.setType(user.getType());
         this.setStatus(user.getStatus());
     }

@@ -7,7 +7,9 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -54,6 +56,9 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") }
     )
     private List<Role> roles;
+
+    @OneToMany(mappedBy="user")
+    private Set<Auction> auctions = new HashSet<>();
 
 
     public User() {

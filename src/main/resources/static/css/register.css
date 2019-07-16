@@ -24,3 +24,8 @@ body {
 #text-center text-white pt-5{
     text-decoration-color: #0000FF;
 }
+
+#select
+{
+    height:auto;
+    border: 1px solid red;  }

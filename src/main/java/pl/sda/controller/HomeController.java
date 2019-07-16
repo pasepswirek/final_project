@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,7 +71,7 @@ public class HomeController {
 //        return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 //    }
 
-
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/index")
     public String getUser(Model model) {
         model.addAttribute("users", userRepository.findAll());

@@ -46,10 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //zabezpieczenie przed wejsciem na poszczególne strony
         http.authorizeRequests()
 //                .antMatchers("/","/userHome/").access("hasRole('USER')")
-                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/adminHome/**").access("hasRole('ADMIN')")
                 .antMatchers("/dba/**").access("hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/login*").permitAll()
-                .antMatchers("/register*").permitAll()
+                .antMatchers("/userHome/**").hasRole("USER")
+                .antMatchers("/login**", "/register**").permitAll()
                 .anyRequest().authenticated();
 //                and().csrf().disable();
 
@@ -58,9 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/appLogin")//wymagane ale obsługa w tle
                 .usernameParameter("username")//nazwa textbox uzytkownika
                 .passwordParameter("pass")//nazwa textbox password
-                .defaultSuccessUrl("/index" , true)//jak ok do do st. głownej
+//                .defaultSuccessUrl("/index" , true)//jak ok do do st. głownej
+                .defaultSuccessUrl("/" )//jak ok do do st. głownej
                 .failureUrl("/error")//jak błąd logowania to do strony z błedem
-                .and().rememberMe().tokenValiditySeconds(604800).key("userKay");
+                .and().rememberMe().tokenValiditySeconds(604800).key("userKey");
         // .failureHandler(authenticationFailureHandler())
 
         http.csrf().disable()

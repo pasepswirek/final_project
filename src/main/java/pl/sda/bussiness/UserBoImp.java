@@ -29,6 +29,9 @@ public class UserBoImp {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private Authorization authorization;
+
 
     public void saveUser(UserDto userDto){
 
@@ -87,6 +90,10 @@ public class UserBoImp {
         user.setStatus(dto.getStatus());
         user.setType(dto.getType());
         userRepository.save(user);
+    }
+
+    public User getCurrentUser() {
+        return userRepository.findByUsername(authorization.getUsername()).get();
     }
 
 //    public Role getRole(String username){

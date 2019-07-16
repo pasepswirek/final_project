@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -9,6 +9,7 @@
 
     <div th:replace="header :: header-css"/>
     <title>Login page</title>
+    Logged in as <span sec:authentication="name" /> with authorities: <span sec:authentication="authorities" />
 </head>
 <body>
 <div th:replace="header :: header"/>
