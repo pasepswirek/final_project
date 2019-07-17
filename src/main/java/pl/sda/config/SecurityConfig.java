@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
 
 import javax.sql.DataSource;
 
@@ -21,6 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "INNER JOIN user_role ur ON ur.user_id = u.user_id " +
                         "INNER JOIN role r ON r.role_id = ur.role_id " +
                         "WHERE u.username=?")
-                .dataSource(dataSource);
-//                .passwordEncoder();
-
+                .dataSource(dataSource)
+                .rolePrefix("ROLE_");
+//                .passwordEncoder(bCryptPasswordEncoder);
 
     }
 
@@ -45,33 +48,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //zabezpieczenie przed wejsciem na poszczególne strony
         http.authorizeRequests()
-//                .antMatchers("/","/userHome/").access("hasRole('USER')")
-                .antMatchers("/adminHome/**").access("hasRole('ADMIN')")
+                .antMatchers("/adminHome/**").hasRole("ADMIN")
                 .antMatchers("/dba/**").access("hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/userHome/**").hasRole("USER")
-                .antMatchers("/login**", "/register**").permitAll()
+                .antMatchers("/userHome/**").access("hasRole('ADMIN') or hasRole('USER')")
+                .antMatchers("/","/login**", "/register**").permitAll()
                 .anyRequest().authenticated();
-//                and().csrf().disable();
+//                .and().csrf().disable();
 
         http.formLogin()
                 .loginPage("/login")//strona z logowaniem
                 .loginProcessingUrl("/appLogin")//wymagane ale obsługa w tle
                 .usernameParameter("username")//nazwa textbox uzytkownika
                 .passwordParameter("pass")//nazwa textbox password
+                .successHandler(authenticationSuccessHandler)
+//                .defaultSuccessUrl("/default")//jak ok do do st. głownej
 //                .defaultSuccessUrl("/index" , true)//jak ok do do st. głownej
-                .defaultSuccessUrl("/" )//jak ok do do st. głownej
-                .failureUrl("/error")//jak błąd logowania to do strony z błedem
+                .failureUrl("/login?error")//jak błąd logowania to do strony z błedem
                 .and().rememberMe().tokenValiditySeconds(604800).key("userKey");
         // .failureHandler(authenticationFailureHandler())
 
         http.csrf().disable()
                 .headers().frameOptions().disable();
-
         http.logout()
+                .logoutSuccessUrl("/login")
                 .logoutUrl("/logout")
-                .deleteCookies("JSESSIONID")
-        //  .logoutSuccessHandler(logoutSuccessHandler())
-        ;
+                .deleteCookies("JSESSIONID");
 
     }
 

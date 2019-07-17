@@ -15,7 +15,6 @@ import pl.sda.dto.UserDto;
 import javax.validation.Valid;
 
 @Controller
-//@RequestMapping("/userPanel")
 public class UserPanelController {
 
     private static final String USER_CHANGE_DATA_CORRECTLY = "Dane poprawnie zmienione. Zaloguj się ponownie";
@@ -37,7 +36,6 @@ public class UserPanelController {
             username = principal.toString();
         }
         model.addAttribute("user", userBo.getUser(username));
-
 
         return "userPanel";
     }

@@ -30,15 +30,13 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        initModel(model);
+        model.addAttribute("user", new UserDto());
         return "register";
     }
 
 
     @PostMapping("/registerUser")
     public String saveUser(@Valid @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult, Model model ) {
-//        model.addAttribute("user", user);
-//        initModel(model);
         if (bindingResult.hasErrors() || validate(user, model)) {
             return "register";
         }
@@ -46,10 +44,6 @@ public class RegisterController {
         userBo.saveUser(user);
         model.addAttribute("userRegisteredCorrectly", USER_REGISTRED_CORRECTLY);
         return "login";
-    }
-
-    private void initModel(Model model) {
-        model.addAttribute("user", new UserDto());
     }
 
     private boolean validate(UserDto user, Model model) {

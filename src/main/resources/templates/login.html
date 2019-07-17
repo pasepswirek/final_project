@@ -2,14 +2,15 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="/css/login.css"/>
 
     <div th:replace="header :: header-css"/>
     <title>Login page</title>
-    Logged in as <span sec:authentication="name" /> with authorities: <span sec:authentication="authorities" />
+
 </head>
 <body>
 <div th:replace="header :: header"/>
@@ -20,6 +21,7 @@
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
+
                 <div id="login-box1" class="col-md-12">
                     <p class="info" th:text="${userRegisteredCorrectly}"></p>
                     <p class="info" th:text="${userChangeDateCorrectly}"></p>
@@ -43,6 +45,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
