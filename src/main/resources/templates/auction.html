@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--    <script type="text/javascript" th:src="@{/js/jquery-1.7.2.js}"></script>-->
+<!--    <script type="text/javascript"  th:src="@{/js/query-ui-1.8.21.custom.min.js}"></script>-->
+<!--&lt;!&ndash;    <script src="/js/jquery-1.7.2.js" ></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script src="/js/query-ui-1.8.21.custom.min.js" ></script>&ndash;&gt;-->
+<!--    <script type="text/javascript">-->
+<!--        $(function(){-->
+<!--            $('#datepicker').datepicker({-->
+<!--                inline: true-->
+<!--            });-->
+<!--            $('#dialog_link, ul#icons li').hover(-->
+<!--                function() { $(this).addClass('ui-state-hover'); },-->
+<!--                function() { $(this).removeClass('ui-state-hover'); }-->
+<!--            );-->
+
+<!--        });-->
+<!--    </script>-->
+<!--    <link rel="stylesheet" href="/css/pepper-grinder/jquery-ui-1.8.21.custom.css"  />-->
+
+    <link rel="stylesheet" href="/css/register.css"/>
+    <div th:replace="header :: header-css"/>
+
+    <meta charset="UTF-8">
+    <title>Portal aukcyjny</title>
+</head>
+<body>
+<div th:replace="header :: header"/>
+<p class="h2 text-center">Add item</p>
+
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box">
+                    <p class="info" th:text="${successfully}"></p>
+                    <form id="login-form" class="form" th:action="@{/saveAuction}" th:object="${auction}" method="post">
+                        <!--                        <input type="hidden" th:value="${id}" th:field="*{id}"/>-->
+                        <p class="error" th:text="${commonError}"></p>
+                        <div class="form-group">
+                            <label for="title" class="text-info">Title:</label><br>
+                            <input type="text" name="auction.title" id="title" th:field="*{title}"
+                                   class="form-control">
+                            <div class="error" th:errors="*{title}"></div>
+                        </div>
+                        <!--                        <div class="error" th:errors="*{usernamee}"></div>-->
+                        <div class="form-group">
+                            <label for="description" class="text-info">Description:</label><br>
+                            <input type="text"  name="auction.description" id="description" th:field="*{description}"
+                                   class="form-control">
+                            <div class="error" th:errors="*{description}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="minimumAmount" class="text-info">Min price:</label><br>
+                            <input type="text" name="auction.minimumAmount" id="minimumAmount" th:field="*{minimumAmount}"
+                                   class="form-control" maxlength="10" size="10">
+                            <div class="error" th:errors="*{minimumAmount}"></div>
+
+                            <label for="buyNowAmount" class="text-info">By now price:</label><br>
+                            <input type="text" name="auction.buyNowAmount" id="buyNowAmount" th:field="*{buyNowAmount}"
+                                   class="form-control" maxlength="10" size="10">
+                            <div class="error" th:errors="*{buyNowAmount}"></div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <select class="form-control " th:field="*{categoryId}"  id="categories">
+                                <option value="0">Select category</option>
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}" th:text="${category.name}"></option>
+                            </select>
+                            <div class="error" th:errors="*{categoryId}"></div>
+                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label for="datepicker" class="text-info">End Date:</label><br>-->
+<!--                            <input type="text" name="auction.endDate" id="datepicker" th:field="*{endDate}"-->
+<!--                                   class="form-control">-->
+<!--                            <div class="error" th:errors="*{endDate}"></div>-->
+<!--                        </div>-->
+
+<!--                        Date: <input type="text" id="datepicker">-->
+                        <div class="form-group">
+                            <input type="file" value="Add foto" name="auction.picture" id="picture" th:field="*{picture}"
+                                   accept="image/*" style="box-sizing: content-box;"
+                                   class="btn btn-info btn-md">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Save" name="saveAuction" class="btn btn-info btn-md"></br>
+                        </div>
+
+                        <div id="register-link" class="text-right">
+                            </br></br>
+                            <a href="/" th:href="@{/logout}" class="text-info">Go to login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
