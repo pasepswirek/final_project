@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:replace="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal aukcyjny</title>
+
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
+              id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel="stylesheet" href="/css/index.css"/>
+
+    <div th:replace="header::header-css"/>
+</head>
+<body>
+
+<<div th:replace="headerAdmin::headerAdmin"/>
+<center>
+    <p class="info" th:text="${userChangeCorrectly}"></p>
+    <p class="info" th:text="${userDeleteCorrectly}"></p>
+<table id="t01" border="2" width="70%" cellpadding="2" align="center">
+    <thead>
+    <th>User id</th>
+    <th>User email</th>
+    <th>City</th>
+    <th>Address</th>
+    <th>Status</th>
+    <th>Account type</th>
+    <th>Creation date</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    <th>Avatar</th>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${users}">
+        <span th:if="${users.empty}">No users available</span>
+
+        <td th:utext="${user.id}"></td>
+        <td th:utext="${user.username}"></td>
+        <td th:utext="${user.city}"></td>
+        <td th:utext="${user.address}"></td>
+        <td th:utext="${user.status}"></td>
+        <td th:utext="${user.type}"></td>
+        <td th:utext="${user.createDate}"></td>
+        <td><a href="/" th:href="@{'/editSimpleUser'+${user.id}}" class="btn btn-primary cust"><font color="red"/>Edit</a></td>
+        <td><a href="/" th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-primary"><font color="red"/> </i> Delete</a></td>
+<!--        <td><a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>-->
+                <td><img src="data:image/jpg;base64,${image}" width="50" height="50"/></td>
+                <td><img th:src="@{'/avatar?id=' +${user.id}}" th:filed="*{avatar}" width="50" height="50"/></td>
+    </tr>
+
+    </tbody>
+
+
+</table>
+</center>
+</body>
+</html>
