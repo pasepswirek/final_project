@@ -14,11 +14,13 @@ import java.util.Date;
 public class AuctionBoImp {
 
     @Autowired
-    AuctionRepository auctionRepository;
+    private AuctionRepository auctionRepository;
     @Autowired
-    UserBoImp userBoImp;
+    private UserBoImp userBoImp;
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryBoImp categoryBoImp;
 
     public void saveAuction(AuctionDto auctionDto) {
 
@@ -36,10 +38,9 @@ public class AuctionBoImp {
         auction.setPicture(auctionDto.getPicture());
         auction.setUser(userBoImp.getCurrentUser());
 
-
-
         auctionRepository.save(auction);
         System.out.println(auction);
-
     }
+
+
 }

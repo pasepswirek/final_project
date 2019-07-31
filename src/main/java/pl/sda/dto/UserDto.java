@@ -40,8 +40,6 @@ public class UserDto {
     private byte[] avatar;
     private AccountType type;
 
-
-
     @Override
     public String toString() {
         return "UserDto{" +

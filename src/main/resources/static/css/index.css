@@ -101,3 +101,13 @@ ul.mail-list li span.mail-message-preview{
 ul.nav navbar-nav navbar-right_1{
     max-width: 300px;
 }
+
+.btn btn-primary cust{
+    background-color: #c2c9d0;
+    color: #fff;
+    border-color: #1f1f1f;
+}
+
+.info{
+    color: red;
+}

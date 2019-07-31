@@ -54,6 +54,8 @@ public class Auction {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
+    @ManyToOne
+    private User user;
     @Override
     public String toString() {
         return "Auction{" +
@@ -71,6 +73,5 @@ public class Auction {
                 '}';
     }
 
-    @ManyToOne
-    private User user;
+
 }

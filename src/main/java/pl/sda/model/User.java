@@ -49,7 +49,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(
             name = "user_role",
             joinColumns = { @JoinColumn(name = "USER_ID") },

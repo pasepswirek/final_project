@@ -1,9 +1,11 @@
 package pl.sda.bussiness;
 
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pl.sda.dto.UserDto;
 import pl.sda.model.AccountStatus;
 import pl.sda.model.AccountType;
@@ -11,6 +13,7 @@ import pl.sda.model.Role;
 import pl.sda.model.User;
 import pl.sda.repository.RoleRepository;
 import pl.sda.repository.UserRepository;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +35,9 @@ public class UserBoImp {
     @Autowired
     private Authorization authorization;
 
+//    @Autowired
+    private  MultipartFile file;
+
 
     public void saveUser(UserDto userDto){
 
@@ -44,7 +50,8 @@ public class UserBoImp {
         user.setType(AccountType.NORMAL);
         user.setCity(userDto.getCity());
         user.setAddress(userDto.getAddress());
-        user.setAvatar(getImageByByte(userDto));
+        user.setAvatar(userDto.getAvatar());
+//        user.setAvatar(getImageByByte(userDto));
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.findByName("USER"));
         user.setRoles(roles);
@@ -52,6 +59,12 @@ public class UserBoImp {
         userRepository.save(user);
         System.out.println(userDto);
 
+    }
+
+    public void deleteUser(Long id){
+        User user = new User();
+        user.setId(id);
+        userRepository.delete(user);
     }
 
 
@@ -65,17 +78,29 @@ public class UserBoImp {
         User user = userRepository.findById(id).get();
         return new UserDto(user);
     }
+//
+//
+//    public byte[] getImageByByte(UserDto userDto) throws IOException {
+//        InputStream inputStream = file.getInputStream();
+//        byte[] filecontent = null;
+//        filecontent = IOUtils.toByteArray(inputStream);
+////        userDto.setAvatar(filecontent);
+//        return filecontent;
+//        }
 
 
-    public byte[] getImageByByte(UserDto userDto){
 
-       if(userDto.getAvatar() != null){
-        byte[] image = new byte[userDto.getAvatar().length] ;
+//    public byte[] getImageByByte(UserDto userDto)  {
+//
+//        if(userDto.getAvatar() != null){
+//            byte[] image = new byte[userDto.getAvatar().length] ;
+//
+//            return image;
+//        }
+//        return null ;
+//    }
 
-        return image;
-       }
-       return null ;
-    }
+
 
     public void updateUser(UserDto dto) {
         User user = userRepository.findByUsername(dto.getUsername()).get();
@@ -87,12 +112,14 @@ public class UserBoImp {
 
     public void updateUserByAdmin(UserDto dto) {
         User user = userRepository.findByUsername(dto.getUsername()).get();
+        user.setAddress(dto.getAddress());
         user.setStatus(dto.getStatus());
         user.setType(dto.getType());
         userRepository.save(user);
     }
 
     public User getCurrentUser() {
+
         return userRepository.findByUsername(authorization.getUsername()).get();
     }
 

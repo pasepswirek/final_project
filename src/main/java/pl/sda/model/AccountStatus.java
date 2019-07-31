@@ -1,8 +1,17 @@
 package pl.sda.model;
 
-public enum AccountStatus {
+import lombok.Getter;
 
-    ACTIVE,
-    NOTACTIVE,
-    BLOCKED
+@Getter
+public  enum AccountStatus {
+
+    ACTIVE("ACTIVE"),
+    NOTACTIVE("NOTACTIVE"),
+    BLOCKED("BLOCKED");
+
+    private final String accountStatus;
+
+    AccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
 }

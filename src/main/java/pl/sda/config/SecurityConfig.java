@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/adminHome/**").hasRole("ADMIN")
                 .antMatchers("/dba/**").access("hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/userHome/**").access("hasRole('ADMIN') or hasRole('USER')")
+                .antMatchers("/userHome/**").hasRole("USER")
                 .antMatchers("/","/login**", "/register**").permitAll()
                 .anyRequest().authenticated();
 //                .and().csrf().disable();
@@ -61,7 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")//nazwa textbox uzytkownika
                 .passwordParameter("pass")//nazwa textbox password
                 .successHandler(authenticationSuccessHandler)
-//                .defaultSuccessUrl("/default")//jak ok do do st. głownej
 //                .defaultSuccessUrl("/index" , true)//jak ok do do st. głownej
                 .failureUrl("/login?error")//jak błąd logowania to do strony z błedem
                 .and().rememberMe().tokenValiditySeconds(604800).key("userKey");

@@ -41,7 +41,7 @@ public class UserPanelController {
     }
 
 
-    @PostMapping("saveUserPanel")
+    @PostMapping("/saveUserPanel")
     public String saveUser(@Valid @RequestBody @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult,
                            Model model) {
         if (bindingResult.hasErrors() || validate(user, model)) {

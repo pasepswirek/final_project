@@ -21,9 +21,9 @@ public class AuctionController {
     private final String AUCTION_ADDED_SUCCESSFULLY = "Auction added successfully";
 
     @Autowired
-    CategoryBoImp categoryBoImp;
+    private CategoryBoImp categoryBoImp;
     @Autowired
-    AuctionBoImp auctionBoImp;
+    private AuctionBoImp auctionBoImp;
 
     @GetMapping("/auction")
     public String auction(Model model) {
@@ -42,8 +42,10 @@ public class AuctionController {
         auctionBoImp.saveAuction(auctionDto);
         model.addAttribute("successfully", AUCTION_ADDED_SUCCESSFULLY);
         model.addAttribute("auction", new AuctionDto());
+        model.addAttribute("categories", categoryBoImp.findAll());
         return "auction";
     }
+
 
 }
 

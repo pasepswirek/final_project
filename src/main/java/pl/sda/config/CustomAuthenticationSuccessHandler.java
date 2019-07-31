@@ -22,12 +22,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/adminHome");
-        } else if (roles.contains("ROLE_USER")) {
+        } else  {
             httpServletResponse.sendRedirect("/userHome");
         }
-        else
-            {
-            httpServletResponse.sendRedirect("/userHome");
-        }
+
     }
 }

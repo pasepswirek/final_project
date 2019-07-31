@@ -13,6 +13,7 @@ import pl.sda.model.User;
 import pl.sda.repository.UserRepository;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 public class RegisterController {
@@ -36,7 +37,7 @@ public class RegisterController {
 
 
     @PostMapping("/registerUser")
-    public String saveUser(@Valid @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult, Model model ) {
+    public String saveUser(@Valid @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult, Model model ){
         if (bindingResult.hasErrors() || validate(user, model)) {
             return "register";
         }
