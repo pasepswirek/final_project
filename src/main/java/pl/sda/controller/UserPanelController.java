@@ -1,13 +1,13 @@
 package pl.sda.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.bussiness.UserBoImp;
+import org.springframework.web.multipart.MultipartFile;
+import pl.sda.bussiness.impl.UserBoImp;
 import pl.sda.bussiness.UserValidator;
 import pl.sda.dto.UserDto;
 
@@ -15,15 +15,17 @@ import pl.sda.dto.UserDto;
 import javax.validation.Valid;
 
 @Controller
-public class UserPanelController {
+public class UserPanelController  {
 
     private static final String USER_CHANGE_DATA_CORRECTLY = "Dane poprawnie zmienione. Zaloguj się ponownie";
 
-    @Autowired
-    private UserBoImp userBo;
+    private final UserBoImp userBoImp;
+    private final UserValidator validator;
 
-    @Autowired
-    private UserValidator validator;
+    public UserPanelController(UserBoImp userBoImp, UserValidator validator) {
+        this.userBoImp = userBoImp;
+        this.validator = validator;
+    }
 
 
     @GetMapping("/userPanel")
@@ -35,20 +37,18 @@ public class UserPanelController {
         } else {
             username = principal.toString();
         }
-        model.addAttribute("user", userBo.getUser(username));
-
+        model.addAttribute("user", userBoImp.getUserByUserName(username));
         return "userPanel";
     }
 
 
-    @PostMapping("/saveUserPanel")
-    public String saveUser(@Valid @RequestBody @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult,
-                           Model model) {
+    @PostMapping(value = "/saveUserPanel", consumes = { "multipart/form-data" })
+    public String updateUser(@Valid @RequestBody @ModelAttribute(name = "user") UserDto user, BindingResult bindingResult,
+                           Model model, @RequestParam("avatarImage") MultipartFile avatarImage ) {
         if (bindingResult.hasErrors() || validate(user, model)) {
             return "userPanel";
         }
-
-        userBo.updateUser(user);
+        userBoImp.updateUser(user, avatarImage);
         model.addAttribute("userChangeDateCorrectly", USER_CHANGE_DATA_CORRECTLY);
         return "login";
     }

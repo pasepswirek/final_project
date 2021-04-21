@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.sda.model.Category;
 
+import java.util.Arrays;
+
 @Getter @Setter
 public class CategoryDto {
 
@@ -21,5 +23,15 @@ public class CategoryDto {
     }
 
     public CategoryDto() {
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", picture=" + Arrays.toString(picture) +
+                '}';
     }
 }

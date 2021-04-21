@@ -16,7 +16,7 @@ import java.util.Date;
 public class Auction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "AUCTION_ID")
     private Long id;
 
@@ -28,7 +28,7 @@ public class Auction {
 
     @Lob
     @Column
-    private byte[] picture;
+    private Byte[] picture;
 
     @ManyToOne
     private Category category;
@@ -56,22 +56,7 @@ public class Auction {
 
     @ManyToOne
     private User user;
-    @Override
-    public String toString() {
-        return "Auction{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", picture=" + Arrays.toString(picture) +
-                ", category=" + category +
-                ", minimumAmount=" + minimumAmount +
-                ", buyNowAmount=" + buyNowAmount +
-                ", isPromoted=" + isPromoted +
-                ", location='" + location + '\'' +
-                ", creationDate=" + creationDate +
-                ", endDate=" + endDate +
-                '}';
-    }
+
 
 
 }

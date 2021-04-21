@@ -1,14 +1,16 @@
-package pl.sda.bussiness;
+package pl.sda.bussiness.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sda.assembler.AuctionAssembler;
 import pl.sda.dto.AuctionDto;
 import pl.sda.model.Auction;
 import pl.sda.repository.AuctionRepository;
 import pl.sda.repository.CategoryRepository;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class AuctionBoImp {
@@ -21,11 +23,11 @@ public class AuctionBoImp {
     private CategoryRepository categoryRepository;
     @Autowired
     private CategoryBoImp categoryBoImp;
+    @Autowired
+    AuctionAssembler auctionAssembler;
 
     public void saveAuction(AuctionDto auctionDto) {
-
         Auction auction = new Auction();
-
         auction.setId(auctionDto.getId());
         auction.setTitle(auctionDto.getTitle());
         auction.setDescription(auctionDto.getDescription());
@@ -39,7 +41,14 @@ public class AuctionBoImp {
         auction.setUser(userBoImp.getCurrentUser());
 
         auctionRepository.save(auction);
-        System.out.println(auction);
+        System.out.println(auction.toString());
+    }
+
+    public List<AuctionDto> findByUsername(String username){
+        return auctionAssembler.auctionDtoList(auctionRepository.findByUsername(username));
+    }
+    public List<AuctionDto> findAll(){
+        return auctionAssembler.auctionDtoList(auctionRepository.findAll());
     }
 
 

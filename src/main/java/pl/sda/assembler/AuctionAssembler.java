@@ -1,9 +1,7 @@
 package pl.sda.assembler;
-
 import org.springframework.stereotype.Component;
 import pl.sda.dto.AuctionDto;
 import pl.sda.model.Auction;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,7 @@ public class AuctionAssembler {
         AuctionDto auctionDto = new AuctionDto();
 
         auctionDto.setId(auction.getId());
-        auctionDto.setTitle(auctionDto.getTitle());
+        auctionDto.setTitle(auction.getTitle());
         auctionDto.setBuyNowAmount(auction.getBuyNowAmount());
         auctionDto.setDescription(auction.getDescription());
         auctionDto.setCreationDate(auction.getCreationDate());
@@ -24,6 +22,7 @@ public class AuctionAssembler {
         auctionDto.setPromoted(auction.isPromoted());
         auctionDto.setCategoryId(auction.getCategory()== null ? null : auction.getCategory().getId());
         auctionDto.setPicture(auction.getPicture()==null? null : auction.getPicture());
+
         return auctionDto;
     }
 
@@ -32,7 +31,6 @@ public class AuctionAssembler {
         for (Auction auction : auctionList) {
             auctionsList.add(toDto(auction));
         }
-
         return  auctionsList;
     }
 }

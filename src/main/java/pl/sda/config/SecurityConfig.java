@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-
 import javax.sql.DataSource;
 
 @Configuration
@@ -67,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // .failureHandler(authenticationFailureHandler())
 
         http.csrf().disable()
-                .headers().frameOptions().disable();
+                .headers().frameOptions().disable();//wyłaczenie opcji zapobiegające atakom
         http.logout()
                 .logoutSuccessUrl("/login")
                 .logoutUrl("/logout")

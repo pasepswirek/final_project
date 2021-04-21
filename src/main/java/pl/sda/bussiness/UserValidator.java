@@ -8,8 +8,9 @@ import pl.sda.repository.UserRepository;
 
 @Component
 public class UserValidator {
-    private static final String USER_EXISTS_MSG = "Użytkownik o takim loginie isnieje w systemie";
+    private static final String USER_EXISTS_MSG = "Użytkownik o takim loginie istnieje w systemie";
     private static final String WRONG_PASS_MSG = "Hasła nie są takie same";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -31,7 +32,7 @@ public class UserValidator {
     }
 
     private boolean checkUserAlreadyExists(UserDto dto) {
-        return userRepository.findByUsername(dto.getUsername()).isPresent();
+        return userRepository.findUserByUsername(dto.getUsername()).isPresent();
     }
 
     private boolean checkPasswordsNotEquals(UserDto dto) {

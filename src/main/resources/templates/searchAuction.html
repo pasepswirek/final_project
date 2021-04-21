@@ -38,10 +38,17 @@
         </div>
     </div>
 </div>
-<center><p class="info" th:text="${resultOfSearch}"></p></center>
+<center>
+<div th:if="${!allAuction.empty}">
+    <span><p class="info" th:text="${resultOfSearch}"></p></span>
+    </div>
+    <div th:if="${allAuction.empty}">
+        <span><p class="info" >No auction available</p></span></div>
+</center>
+<!--<center><p class="info" th:text="${resultOfSearch}"></p></center>-->
 <table border="2" width="70%" cellpadding="2" align="center">
     <thead>
-<!--    <th>Category</th>-->
+    <th>Category</th>
     <th>Title</th>
     <th>Description</th>
     <th>Min amount</th>
@@ -53,23 +60,29 @@
 
     </thead>
     <tbody>
+
+
     <tr th:each="auction: ${allAuction}">
-        <span th:if="${allAuction.empty}">No auction available</span>
-        <!--    <td th:utext="$auction.category_category_id"></td>-->
+        <span th:each="category : ${categories}">
+        <span th:if="${category.id==auction.categoryId}">
+        <td
+                th:utext="${category.name}"></td></span></span>
 <!--        <td th:utext="${auction.categoryId}"></td>-->
+<!--          <td th:utext="${auction}"></td>-->
         <td th:utext="${auction.title}"></td>
         <td th:utext="${auction.description}"></td>
         <td th:utext="${auction.minimumAmount}"></td>
         <td th:utext="${auction.buyNowAmount}"></td>
         <td th:utext="${auction.creationDate}"></td>
         <td th:utext="${auction.endDate}"></td>
-        <td >
-            <span th:if="${auction.isPromoted}">true</span>
-            <span th:if="${!auction.isPromoted}">false</span>
-        </td>
+<!--        <td >-->
+<!--            <span th:if="${auction.isPromoted}">true</span>-->
+<!--            <span th:if="${!auction.isPromoted}">false</span>-->
+<!--        </td>-->
 <!--        <td th:utext="${auction.isPromoted} ? 'false': 'true'"></td>-->
         <td th:utext="${auction.location}"></td>
     </tr>
+
     </tbody>
 </table>
 

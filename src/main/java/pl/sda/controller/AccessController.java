@@ -8,7 +8,7 @@
 //import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.servlet.ModelAndView;
-//import pl.sda.bussiness.UserBoImp;
+//import pl.sda.bussiness.impl.UserBoImp;
 //import pl.sda.dto.UserDto;
 //import pl.sda.model.Role;
 //import pl.sda.model.User;

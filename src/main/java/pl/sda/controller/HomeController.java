@@ -1,25 +1,18 @@
 package pl.sda.controller;
 
 
-import org.apache.commons.io.IOUtils;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.bussiness.UserBoImp;
+import pl.sda.bussiness.impl.UserBoImp;
 import pl.sda.dto.UserDto;
 import pl.sda.repository.UserRepository;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,7 +25,7 @@ public class HomeController {
     private UserRepository userRepository;
 
     @Autowired
-    private UserBoImp userBo;
+    private UserBoImp userBoImp;
 
 
 
@@ -59,10 +52,10 @@ public class HomeController {
     public void showUserImage(@RequestParam("id") long id,
                               HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
 
-        UserDto user = userBo.getId(id);
+        UserDto user = userBoImp.getById(id);
 //        byte[] imageContent = Base64.encodeBase64(user.getAvatar());
-        byte[] encode = java.util.Base64.getEncoder().encode(user.getAvatar());
-        model.addAttribute("image", new String(encode, "UTF-8"));
+//        byte[] encode = java.util.Base64.getEncoder().encode(user.getAvatar());
+//        model.addAttribute("image", new String(encode, "UTF-8"));
 
 //        byte[] imageContent = user.getAvatar();
 //        String catImage =  Base64.encodeBase64String(imageContent);

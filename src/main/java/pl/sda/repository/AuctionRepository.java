@@ -14,4 +14,7 @@ public interface AuctionRepository extends CrudRepository<Auction, Long> {
 
     @Query("select a from Auction a join a.user u where u.username = :username")
     List<Auction> findByUsername(@Param("username") String username);
+
+    List<Auction> findAll();
+
 }

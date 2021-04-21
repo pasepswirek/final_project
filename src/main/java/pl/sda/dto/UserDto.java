@@ -10,6 +10,7 @@ import pl.sda.model.User;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.Arrays;
 import java.util.Date;
 
 @Getter @Setter
@@ -38,7 +39,10 @@ public class UserDto {
     private Date createDate;
     private AccountStatus status;
     private byte[] avatar;
+    private MultipartFile avatarImage;
     private AccountType type;
+    private Long id;
+    private String base64EncodedImage;
 
     @Override
     public String toString() {
@@ -50,13 +54,15 @@ public class UserDto {
                 ", address='" + address + '\'' +
                 ", createDate=" + createDate +
                 ", status=" + status +
-                ", avatar=" + avatar +
+                ", avatar=" + Arrays.toString(avatar) +
                 ", type=" + type +
+                ", id=" + id +
                 '}';
     }
 
     public UserDto() {
     }
+
 
     public UserDto(User user) {
         this.username = user.getUsername();
