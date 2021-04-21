@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.sda.bussiness.UserBo;
 import pl.sda.bussiness.impl.UserBoImp;
 import pl.sda.bussiness.UserValidator;
 import pl.sda.dto.UserDto;
@@ -17,13 +18,13 @@ import javax.validation.Valid;
 @Controller
 public class UserPanelController  {
 
-    private static final String USER_CHANGE_DATA_CORRECTLY = "Dane poprawnie zmienione. Zaloguj się ponownie";
+    private static final String USER_CHANGE_DATA_CORRECTLY = "Data correctly changed. Please login again ";
 
-    private final UserBoImp userBoImp;
+    private final UserBo userBo;
     private final UserValidator validator;
 
-    public UserPanelController(UserBoImp userBoImp, UserValidator validator) {
-        this.userBoImp = userBoImp;
+    public UserPanelController(UserBoImp userBoImp, UserBo userBo, UserValidator validator) {
+        this.userBo = userBo;
         this.validator = validator;
     }
 
@@ -37,7 +38,7 @@ public class UserPanelController  {
         } else {
             username = principal.toString();
         }
-        model.addAttribute("user", userBoImp.getUserByUserName(username));
+        model.addAttribute("user", userBo.getUserByUsername(username));
         return "userPanel";
     }
 
@@ -48,7 +49,7 @@ public class UserPanelController  {
         if (bindingResult.hasErrors() || validate(user, model)) {
             return "userPanel";
         }
-        userBoImp.updateUser(user, avatarImage);
+        userBo.updateUser(user, avatarImage);
         model.addAttribute("userChangeDateCorrectly", USER_CHANGE_DATA_CORRECTLY);
         return "login";
     }

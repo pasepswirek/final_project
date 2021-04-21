@@ -14,9 +14,9 @@ public interface UserBo {
 
     void deleteUser(Long id);
 
-    UserDto getUserByUserName(String username);
+    UserDto getUserByUsername(String username);
 
-    List<UserDto> findUserByUsername(String username);
+    List<UserDto> getUsersByUsername(String username);
 
     UserDto getById(long id);
 

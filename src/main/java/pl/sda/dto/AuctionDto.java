@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 import pl.sda.model.Category;
 
 import java.math.BigDecimal;
@@ -20,7 +21,7 @@ public class AuctionDto {
     private Long id;
     private String title;
     private String description;
-    private Byte[] picture;
+    private byte[] picture;
     private BigDecimal minimumAmount;
     private BigDecimal buyNowAmount;
     private boolean isPromoted;
@@ -28,6 +29,8 @@ public class AuctionDto {
     private Date creationDate;
     private Date endDate;
     private Long categoryId;
+    private MultipartFile pictureFile;
+    private String base64EncodedImage;
 
     @Override
     public String toString() {

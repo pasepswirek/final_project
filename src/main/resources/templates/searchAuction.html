@@ -57,6 +57,7 @@
     <th>End data</th>
 <!--    <th>Is promoted</th>-->
     <th>Location</th>
+    <th>Picture</th>
 
     </thead>
     <tbody>
@@ -81,6 +82,10 @@
 <!--        </td>-->
 <!--        <td th:utext="${auction.isPromoted} ? 'false': 'true'"></td>-->
         <td th:utext="${auction.location}"></td>
+        <td>
+            <img  th:if="${auction.picture !=null && !#strings.isEmpty(auction.picture)}" th:src="@{'data:image/jpeg;base64,' + ${imgUtil.getImgData(auction.picture)}}" width="50" height="50"/>
+            <img th:unless="${auction.picture}" th:src="@{/images/no-image.png}" width="50" height="50"/>
+    </tr>
     </tr>
 
     </tbody>

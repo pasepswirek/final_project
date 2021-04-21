@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.bussiness.ImageBo;
 import pl.sda.bussiness.ImageUtil;
+import pl.sda.bussiness.UserBo;
 import pl.sda.bussiness.impl.UserBoImp;
 import pl.sda.bussiness.UserValidator;
 import pl.sda.dto.UserDto;
@@ -15,24 +15,22 @@ import pl.sda.model.User;
 import pl.sda.repository.UserRepository;
 
 import javax.validation.Valid;
-import java.awt.*;
 import java.util.List;
 
 
 @Controller
-//@RequestMapping("/")
 public class EditUserController {
 
     private static final String USER_CHANGE_CORRECTLY = "Zmiany zapisane poprawnie";
     private static final String USER_DELETE_CORRECTLY = "Użytkownik usunięty pomyslnie";
 
     private final UserRepository userRepository;
-    private final UserBoImp userBoImp;
+    private final UserBo userBo;
     private final UserValidator validator;
 
-    public EditUserController(UserRepository userRepository, UserBoImp userBoImp, UserValidator validator) {
+    public EditUserController(UserRepository userRepository, UserBoImp userBoImp, UserBo userBo, UserValidator validator) {
         this.userRepository = userRepository;
-        this.userBoImp = userBoImp;
+        this.userBo = userBo;
         this.validator = validator;
     }
 
@@ -63,8 +61,8 @@ public class EditUserController {
 //        model.addAttribute("user", userBoImp.getUser(username));
 //        return "editSimpleUser";
 //    }
-    @GetMapping("/editSimpleUser{id}")
-    public String user(@Valid @PathVariable(name = "id") long id, @ModelAttribute(name = "user") UserDto userDto,
+    @GetMapping(value = "/editSimpleUser{id}", produces = MediaType.IMAGE_PNG_VALUE)
+    public String getUser(@Valid @PathVariable(name = "id") long id,
                        Model model) {
         User user = userRepository.findUserById(id);
         String username;
@@ -73,42 +71,44 @@ public class EditUserController {
         } else {
             username = user.toString();
         }
-        model.addAttribute("user", userBoImp.getUserByUserName(username));
+        model.addAttribute("user", userBo.getUserByUsername(username));
         return "editSimpleUser";
     }
 
-    @PostMapping(value = "/saveChange")
+    @PostMapping(value = "/saveChange", produces = MediaType.IMAGE_PNG_VALUE)
     public String saveUser(@ModelAttribute("user") UserDto user, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "editSimpleUser";
         }
-        userBoImp.updateUserByAdmin(user);
+        userBo.updateUserByAdmin(user);
         model.addAttribute("userChangeCorrectly", USER_CHANGE_CORRECTLY);
         model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("imgUtil", new ImageUtil());
         return "editUsers";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping(value = "/delete/{id}",  produces = MediaType.IMAGE_PNG_VALUE)
     public String deleteUser(@PathVariable(name = "id") long id, @ModelAttribute(name = "user") UserDto userDto, Model model) {
-        userDto = userBoImp.getById(id);
+        userDto = userBo.getById(id);
         System.out.println(userDto.toString());
         System.out.println(id);
-        userBoImp.deleteUser(id);
+        userBo.deleteUser(id);
         model.addAttribute("userDeleteCorrectly", USER_DELETE_CORRECTLY);
         model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("imgUtil", new ImageUtil());
         return "editUsers";
     }
 
-    @PostMapping("/searchUserByName")
-    public String searchUserByName(@ModelAttribute(name = "user") UserDto userDto, Model model) {
+    @PostMapping("/findUserByName")
+    public String findUserByName(@ModelAttribute(name = "user") UserDto userDto, Model model) {
 //        model.addAttribute("user", new UserDto());
         String username = userDto.getUsername();
-        List<UserDto> userList = userBoImp.findUserByUsername(username);
+        List<UserDto> userList = userBo.getUsersByUsername(username);
         for (UserDto dto : userList) {
             System.out.println(dto.toString());
         }
-        model.addAttribute("users", userBoImp.findUserByUsername(username));
+        model.addAttribute("users", userBo.getUsersByUsername(username));
         return "editUsers";
     }
 

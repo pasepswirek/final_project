@@ -21,7 +21,7 @@
             <div id="login-column" class="col-md-6 col-md-offset-3">
                 <div id="login-box">
 
-                    <form id="login-form" class="form" th:action="@{/searchUserByName}" th:object="${user}"
+                    <form id="login-form" class="form" th:action="@{/findUserByName}" th:object="${user}"
                           method="post">
                         <div class="form-group">
                             <label for="username" class="text-info">Search User by user name:</label><br>
@@ -68,16 +68,11 @@
         <td th:utext="${user.createDate}"></td>
         <td><a href="/" th:href="@{'/editSimpleUser'+${user.id}}" class="btn btn-primary cust"><font color="red"/>Edit</a></td>
         <td><a href="/" th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-primary"><font color="red"/> </i> Delete</a></td>
-<!--        <td><a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>-->
                 <td>
-<!--                    <img th:src="@{/images/icon.png}"/>-->
-                    <img  th:if="${user.avatar}" th:src="@{'data:image/jpeg;base64,' + ${imgUtil.getImgData(user.avatar)}}" width="50" height="50"/>
+                    <img  th:if="${user.avatar !=null && !#strings.isEmpty(user.avatar)}" th:src="@{'data:image/jpeg;base64,' + ${imgUtil.getImgData(user.avatar)}}" width="50" height="50"/>
                     <img th:unless="${user.avatar}" th:src="@{/images/icon.png}" width="50" height="50"/>
 <!--                    <img th:src="${(user.avatar != null && !#strings.isEmpty(user.avatar)) ? user.avatar : '/images/icon.png'}"-->
-<!--                         width="50" height="50"/>-->
-                </td>
-<!--        <img th:src="${user.avatar}" >-->
-<!--                <td><img th:src="@{'/avatar?id=' +${user.id}}" th:filed="*{avatar}" width="50" height="50"/></td>-->
+<!--                         width="50" height="50"/>--></td>
     </tr>
 
     </tbody>

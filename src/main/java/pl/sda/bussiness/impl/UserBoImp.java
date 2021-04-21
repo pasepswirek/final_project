@@ -35,8 +35,6 @@ public class UserBoImp implements UserBo {
     private final UserAssembler userAssembler;
     private final ImageBo imageBo;
 
-    //    @Autowired
-//    private MultipartFile file;
 
     public UserBoImp(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder, Authorization authorization, UserAssembler userAssembler, ImageBo imageBo) {
         this.userRepository = userRepository;
@@ -75,14 +73,14 @@ public class UserBoImp implements UserBo {
     }
 
     @Override
-    public UserDto getUserByUserName(String username) {
+    public UserDto getUserByUsername(String username) {
         User user = userRepository.findUserByUsername(username).get();
         return new UserDto(user);
     }
 
     @Override
-    public List<UserDto> findUserByUsername(String username) {
-        return userAssembler.userDtoList(userRepository.findByUsername(username));
+    public List<UserDto> getUsersByUsername(String username) {
+        return userAssembler.useToUserDtoList(userRepository.findByUsername(username));
     }
 
     @Override
@@ -91,16 +89,16 @@ public class UserBoImp implements UserBo {
         return new UserDto(user);
     }
 
-
-
     @Override
     public void updateUser(UserDto dto, MultipartFile file) {
         User user = userRepository.findUserByUsername(dto.getUsername()).get();
+        if(!file.isEmpty()){
+            user.setAvatar(imageBo.saveImageFile(file));
+        }
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setCity(dto.getCity());
         user.setAddress(dto.getAddress());
         user.setUsername(dto.getUsername());
-        user.setAvatar(imageBo.saveImageFile(file));
         userRepository.save(user);
     }
 

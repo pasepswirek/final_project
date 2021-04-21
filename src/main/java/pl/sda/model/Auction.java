@@ -3,6 +3,7 @@ package pl.sda.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "AUCTION")
 @Getter @Setter
+@ToString
 public class Auction {
 
     @Id
@@ -28,7 +30,7 @@ public class Auction {
 
     @Lob
     @Column
-    private Byte[] picture;
+    private byte[] picture;
 
     @ManyToOne
     private Category category;
@@ -56,7 +58,5 @@ public class Auction {
 
     @ManyToOne
     private User user;
-
-
 
 }

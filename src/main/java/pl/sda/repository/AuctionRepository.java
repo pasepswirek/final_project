@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface AuctionRepository extends CrudRepository<Auction, Long> {
 
-    @Query("select a from Auction a join a.user u where u.username = :username")
+    @Query("select a from Auction a join a.user u where u.username like %:username%")
     List<Auction> findByUsername(@Param("username") String username);
 
     List<Auction> findAll();
