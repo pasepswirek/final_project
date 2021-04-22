@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.Date;
 
 @Getter @Setter
-//@ToString
 @NoArgsConstructor
 public class AuctionDto {
 
