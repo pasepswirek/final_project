@@ -2,13 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <div th:fragment="header-css">
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
-              id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <link rel="stylesheet" href="/css/index.css"/>
-    </div>
+    <!--    <div th:fragment="header-css"/>-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="/css/index.css"/>
     <title>Auction panel</title>
 </head>
 <body>
@@ -39,57 +38,80 @@
     </div>
 </div>
 <center>
-<div th:if="${!allAuction.empty}">
-    <span><p class="info" th:text="${resultOfSearch}"></p></span>
+    <div th:if="${!allAuction.empty}">
+        <span><p class="info" th:text="${resultOfSearch}"></p></span>
     </div>
     <div th:if="${allAuction.empty}">
-        <span><p class="info" >No auction available</p></span></div>
+        <span><p class="info">No auction available</p></span></div>
 </center>
 <!--<center><p class="info" th:text="${resultOfSearch}"></p></center>-->
-<table border="2" width="70%" cellpadding="2" align="center">
-    <thead>
-    <th>Category</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Min amount</th>
-    <th>Buy now amount</th>
-    <th>Creation data</th>
-    <th>End data</th>
-<!--    <th>Is promoted</th>-->
-    <th>Location</th>
-    <th>Picture</th>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Auction</h1>
+                </div>
+                <div class="panel-body">
 
-    </thead>
-    <tbody>
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <thead class="thead-inverse">
+                            <th>Category</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Min amount</th>
+                            <th>Buy now amount</th>
+                            <th>Creation data</th>
+                            <th>End data</th>
+                            <!--    <th>Is promoted</th>-->
+                            <th>Location</th>
+                            <th>Picture</th>
 
+                            </thead>
 
-    <tr th:each="auction: ${allAuction}">
+                            <tbody>
+
+                            <tr th:each="auction: ${allAuction}">
         <span th:each="category : ${categories}">
         <span th:if="${category.id==auction.categoryId}">
         <td
                 th:utext="${category.name}"></td></span></span>
-<!--        <td th:utext="${auction.categoryId}"></td>-->
-<!--          <td th:utext="${auction}"></td>-->
-        <td th:utext="${auction.title}"></td>
-        <td th:utext="${auction.description}"></td>
-        <td th:utext="${auction.minimumAmount}"></td>
-        <td th:utext="${auction.buyNowAmount}"></td>
-        <td th:utext="${auction.creationDate}"></td>
-        <td th:utext="${auction.endDate}"></td>
-<!--        <td >-->
-<!--            <span th:if="${auction.isPromoted}">true</span>-->
-<!--            <span th:if="${!auction.isPromoted}">false</span>-->
-<!--        </td>-->
-<!--        <td th:utext="${auction.isPromoted} ? 'false': 'true'"></td>-->
-        <td th:utext="${auction.location}"></td>
-        <td>
-            <img  th:if="${auction.picture !=null && !#strings.isEmpty(auction.picture)}" th:src="@{'data:image/jpeg;base64,' + ${imgUtil.getImgData(auction.picture)}}" width="50" height="50"/>
-            <img th:unless="${auction.picture}" th:src="@{/images/no-image.png}" width="50" height="50"/>
-    </tr>
-    </tr>
+                                <!--        <td th:utext="${auction.categoryId}"></td>-->
+                                <!--          <td th:utext="${auction}"></td>-->
+                                <td th:utext="${auction.title}"></td>
+                                <td th:utext="${auction.description}"></td>
+                                <td th:utext="${auction.minimumAmount}"></td>
+                                <td th:utext="${auction.buyNowAmount}"></td>
+                                <td th:utext="${auction.creationDate}"></td>
+                                <td th:utext="${auction.endDate}"></td>
+                                <!--        <td >-->
+                                <!--            <span th:if="${auction.isPromoted}">true</span>-->
+                                <!--            <span th:if="${!auction.isPromoted}">false</span>-->
+                                <!--        </td>-->
+                                <!--        <td th:utext="${auction.isPromoted} ? 'false': 'true'"></td>-->
+                                <td th:utext="${auction.location}"></td>
+                                <td>
+                                    <img th:if="${auction.picture !=null && !#strings.isEmpty(auction.picture)}"
+                                         th:src="@{'data:image/jpeg;base64,' + ${imgUtil.getImgData(auction.picture)}}"
+                                         width="50" height="50"/>
+                                    <img th:unless="${auction.picture}" th:src="@{/images/no-image.png}" width="50"
+                                         height="50"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div th:replace="footer :: ${#authentication.principal.isAdmin()} ? 'footer-admin' : 'footer'"/>-->
+<div th:replace="fragments/footer:: ${ #authorization.expression('isAuthenticated()')
+&& #strings.contains(#authentication.principal.authorities,'ADMIN')} ?
+'footer-admin' : 'footer'"/>
 
-    </tbody>
-</table>
-
+<!--<div th:replace="footer :: footer"/>-->
 </body>
 </html>

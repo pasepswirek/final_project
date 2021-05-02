@@ -5,26 +5,25 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!--    <script type="text/javascript" th:src="@{/js/jquery-1.7.2.js}"></script>-->
-<!--    <script type="text/javascript"  th:src="@{/js/query-ui-1.8.21.custom.min.js}"></script>-->
-<!--&lt;!&ndash;    <script src="/js/jquery-1.7.2.js" ></script>&ndash;&gt;-->
-<!--&lt;!&ndash;    <script src="/js/query-ui-1.8.21.custom.min.js" ></script>&ndash;&gt;-->
-<!--    <script type="text/javascript">-->
-<!--        $(function(){-->
-<!--            $('#datepicker').datepicker({-->
-<!--                inline: true-->
-<!--            });-->
-<!--            $('#dialog_link, ul#icons li').hover(-->
-<!--                function() { $(this).addClass('ui-state-hover'); },-->
-<!--                function() { $(this).removeClass('ui-state-hover'); }-->
-<!--            );-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>-->
+<!--    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>-->
+<!--&lt;!&ndash;    <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>&ndash;&gt;-->
+<!--    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>-->
+<!--    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
+<!--    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>-->
+<!--    <script th:src="@{assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>-->
 
-<!--        });-->
+<!--    <script>-->
+<!--    $('.input-group.date').datepicker({-->
+<!--        autoclose: true,-->
+<!--        todayHighlight: true-->
+<!--    });-->
+
 <!--    </script>-->
-<!--    <link rel="stylesheet" href="/css/pepper-grinder/jquery-ui-1.8.21.custom.css"  />-->
 
     <link rel="stylesheet" href="/css/register.css"/>
-    <div th:replace="header :: header-css"/>
+<!--    <div th:replace="header :: header-css"/>-->
 
     <meta charset="UTF-8">
     <title>Portal aukcyjny</title>
@@ -52,14 +51,15 @@
                         <!--                        <div class="error" th:errors="*{usernamee}"></div>-->
                         <div class="form-group">
                             <label for="description" class="text-info">Description:</label><br>
-                            <input type="text"  name="auction.description" id="description" th:field="*{description}"
+                            <input type="text" name="auction.description" id="description" th:field="*{description}"
                                    class="form-control">
                             <div class="error" th:errors="*{description}"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="minimumAmount" class="text-info">Min price:</label><br>
-                            <input type="text" name="auction.minimumAmount" id="minimumAmount" th:field="*{minimumAmount}"
+                            <input type="text" name="auction.minimumAmount" id="minimumAmount"
+                                   th:field="*{minimumAmount}"
                                    class="form-control" maxlength="10" size="10">
                             <div class="error" th:errors="*{minimumAmount}"></div>
 
@@ -70,30 +70,38 @@
                         </div>
                         <div class="form-group">
                             <label for="location" class="text-info">Location:</label><br>
-                            <input type="text"  name="auction.location" id="location" th:field="*{location}"
+                            <input type="text" th:name="auction.location" id="location" th:field="*{location}"
                                    class="form-control">
                             <div class="error" th:errors="*{location}"></div>
                         </div>
 
                         <div class="form-group">
 
-                            <select class="form-control " th:field="*{categoryId}"  id="categories">
+                            <select class="form-control " th:field="*{categoryId}" id="categoryId" th:name="auction.categoryId">
                                 <option value="0">Select category</option>
                                 <option th:each="category : ${categories}"
                                         th:value="${category.id}" th:text="${category.name}"></option>
                             </select>
                             <div class="error" th:errors="*{categoryId}"></div>
                         </div>
-<!--                        <div class="form-group">-->
-<!--                            <label for="datepicker" class="text-info">End Date:</label><br>-->
-<!--                            <input type="text" name="auction.endDate" id="datepicker" th:field="*{endDate}"-->
-<!--                                   class="form-control">-->
-<!--                            <div class="error" th:errors="*{endDate}"></div>-->
-<!--                        </div>-->
-
-<!--                        Date: <input type="text" id="datepicker">-->
                         <div class="form-group">
-                            <input type="file" value="pictureFile" name="auction.pictureFile" id="picture" th:field="*{pictureFile}"
+                            <label for="endDate" class="text-info">End Date:</label><br>
+                            <input type="date" th:name="auction.endDate"   id="endDate"
+                            th:field="*{endDate}" class="form-control"/>
+<!--                            th:value="${#calendars.format(endData,'yyyy-MM-dd')}"-->
+<!--                            <div class="input-group date">-->
+<!--                                <input type="text" name="auction.endDate" id="endDate" th:field="*{endDate}"-->
+<!--                                       autocomplete="off"/>-->
+<!--                                <div class="input-group-append">-->
+<!--                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="error" th:errors="*{endDate}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="file" value="pictureFile" name="auction.pictureFile" id="picture"
+                                   th:field="*{pictureFile}"
                                    accept="image/*" style="box-sizing: content-box;"
                                    class="btn btn-info btn-md">
                         </div>
@@ -108,6 +116,8 @@
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>

@@ -8,7 +8,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="/css/login.css"/>
 
-    <div th:replace="header :: header-css"/>
+<!--    <div th:replace="header :: header-css"/>-->
     <title>Login page</title>
 
 </head>
@@ -24,6 +24,7 @@
                 <div id="login-box1" class="col-md-12">
                     <p class="info" th:text="${userRegisteredCorrectly}"></p>
                     <p class="info" th:text="${userChangeDateCorrectly}"></p>
+                    <p class="info" th:text="${accountBlocking}"></p>
                     <form id="login-form" class="form" action="/appLogin" method="post">
                         <h3 class="text-center text-info">Login form</h3>
                         <div class="form-group">

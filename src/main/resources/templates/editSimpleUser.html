@@ -8,9 +8,9 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="/css/register.css"/>
-    <div th:replace="header :: header-css"/>
+<!--    <div th:replace="header :: header-css"/>-->
 
-    <title>Title</title>
+    <title>Portal aukcyjny</title>
 </head>
 <body>
 <div th:replace="headerAdmin :: headerAdmin"/>
@@ -22,27 +22,35 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6 col-md-offset-3">
                 <div id="login-box" class="col-md-12">
-
+<!--                    <td th:utext="${user.id}"></td>-->
+                    <span  th:object="${user}"></span>
+                    <label for="username" class="text-info">Email address:</label><br>
+                   <b> <span th:utext="${user.username}"></span></b><br>
+                    <label for="city" class="text-info">City:</label><br>
+                    <b><span th:utext="${user.city}" id="city"></span></b><br>
+                    <label for="address" class="text-info">Address:</label><br>
+                    <b> <span th:utext="${user.address}" id="address"></span></b>
                     <form id="login-form" class="form" th:action="@{/saveChange}" th:object="${user}" method="post">
 
                         <p class="error" th:text="${commonError}"></p>
-                        <div class="form-group">
+                        <input type="hidden" th:field="*{username}" id="username">
+<!--                        <div class="form-group">-->
 
-                            <label for="username" class="text-info">Email address:</label><br>
-                            <input type="text" name="user.username" id="username" th:field="*{username}"
-                                   class="form-control">
-                            <div class="error" th:errors="*{username}"></div>
+<!--                            <label for="username" class="text-info">Email address:</label><br>-->
+<!--                            <hiden th:utext="${user.username}"  id="username" th:field="*{username}"-->
+<!--                                   class="form-control"></hiden>-->
+<!--                            <div class="error" th:errors="*{username}"></div>-->
 
-                        <div class="form-group">
-                            <label for="city" class="text-info">City:</label><br>
-                            <input type="text" name="user.city" id="city" th:field="*{city}" class="form-control">
-                            <div class="error" th:errors="*{city}"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="address" class="text-info">Address:</label><br>
-                            <input type="text" name="user.address" id="address" th:field="*{address}" class="form-control">
-                            <div class="error" th:errors="*{address}"></div>
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label for="city" class="text-info">City:</label><br>-->
+<!--                            <input type="text" name="user.city" id="city" th:field="*{city}" class="form-control">-->
+<!--                            <div class="error" th:errors="*{city}"></div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="address" class="text-info">Address:</label><br>-->
+<!--                            <input type="text" name="user.address" id="address" th:field="*{address}" class="form-control">-->
+<!--                            <div class="error" th:errors="*{address}"></div>-->
+<!--                        </div>-->
 
                             <div class="form-group">
                                 <label for="type" class="text-info">Account status:</label><br>
@@ -61,7 +69,7 @@
                         <div class="form-group">
                             <input type="submit" value="Save change" name="save" class="btn btn-info btn-md"></br>
                         </div>
-                        </div>
+<!--                        </div>-->
 
                     </form>
                 </div>

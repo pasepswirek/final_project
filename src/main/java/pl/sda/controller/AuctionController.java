@@ -23,7 +23,7 @@ public class AuctionController {
     private final CategoryBo categoryBo;
     private final AuctionBo auctionBo;
 
-    public AuctionController(CategoryBo categoryBo, AuctionBoImp auctionBoImp, AuctionBo auctionBo) {
+    public AuctionController(CategoryBo categoryBo, AuctionBo auctionBo) {
         this.categoryBo = categoryBo;
         this.auctionBo = auctionBo;
     }

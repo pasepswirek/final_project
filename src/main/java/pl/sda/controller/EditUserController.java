@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.bussiness.ImageUtil;
 import pl.sda.bussiness.UserBo;
-import pl.sda.bussiness.impl.UserBoImp;
 import pl.sda.bussiness.UserValidator;
 import pl.sda.dto.UserDto;
 import pl.sda.model.User;
@@ -21,14 +20,14 @@ import java.util.List;
 @Controller
 public class EditUserController {
 
-    private static final String USER_CHANGE_CORRECTLY = "Zmiany zapisane poprawnie";
-    private static final String USER_DELETE_CORRECTLY = "Użytkownik usunięty pomyslnie";
+    private static final String USER_CHANGE_CORRECTLY = "User changes saved correctly";
+    private static final String USER_DELETE_CORRECTLY = "User deleted successfully";
 
     private final UserRepository userRepository;
     private final UserBo userBo;
     private final UserValidator validator;
 
-    public EditUserController(UserRepository userRepository, UserBoImp userBoImp, UserBo userBo, UserValidator validator) {
+    public EditUserController(UserRepository userRepository, UserBo userBo, UserValidator validator) {
         this.userRepository = userRepository;
         this.userBo = userBo;
         this.validator = validator;
@@ -109,6 +108,7 @@ public class EditUserController {
             System.out.println(dto.toString());
         }
         model.addAttribute("users", userBo.getUsersByUsername(username));
+        model.addAttribute("imgUtil", new ImageUtil());
         return "editUsers";
     }
 

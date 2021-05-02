@@ -15,6 +15,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
+    @Query("select u from User u where u.username like %:username% ")
     List<User> findByUsername(String username);
 
     Optional<User> findUserByUsername(String username);
@@ -22,8 +23,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findUserById(Long id);
 
 
-
-//    @Transactional
 //    @Modifying(clearAutomatically = true)
 //    @Query("update User u set u.city = city where u.username =  username ")
 //    void updateData(@Param("username") String username , @Param("city") String city);

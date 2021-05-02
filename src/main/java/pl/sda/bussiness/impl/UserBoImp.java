@@ -106,17 +106,4 @@ public class UserBoImp implements UserBo {
 //        Role role = roleRepository.findByUserName(username);
 //        return   role;
 //    }
-//
-//    public void getByteToImage(long id,  HttpServletResponse response) throws IOException {
-//        User user = userRepository.findById(id).get();
-//
-//        response.setContentType("image/jpeg");
-//        byte[] bytes = user.getAvatar();
-//        IOUtils.copy(new ByteArrayInputStream(bytes), response.getOutputStream());
-//
-////        InputStream is = new ByteArrayInputStream(bytes);
-////        IOUtils.copy(is, response.getOutputStream());
-//
-//    }
-
 }
