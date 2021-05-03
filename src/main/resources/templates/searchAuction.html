@@ -1,17 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <!--    <div th:fragment="header-css"/>-->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
-          id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title th:replace="~{fragments/head :: title}">Title</title>
+    <th:block th:insert="~{fragments/head :: link}"></th:block>
+    <th:block th:insert="~{fragments/head:: head/script}"></th:block>
     <link rel="stylesheet" href="/css/index.css"/>
-    <title>Auction panel</title>
+    <!--    <style>-->
+    <!--.footer {-->
+    <!--   position: fixed;-->
+    <!--   left: 0;-->
+    <!--   bottom: 0;-->
+    <!--   width: 100%;-->
+    <!--   background-color:#fff;-->
+    <!--   color: #000;-->
+    <!--   text-align: center;-->
+    <!--}-->
+    <!--</style>-->
 </head>
 <body>
-<div th:replace="headerAdmin::headerAdmin"/>
+<div th:replace="header::header"/>
 
 <div id="login">
     <div class="container">
@@ -107,11 +114,12 @@
         </div>
     </div>
 </div>
-<!--<div th:replace="footer :: ${#authentication.principal.isAdmin()} ? 'footer-admin' : 'footer'"/>-->
-<div th:replace="fragments/footer:: ${ #authorization.expression('isAuthenticated()')
+<div class="footer">
+    <div th:replace="fragments/footer:: ${ #authorization.expression('isAuthenticated()')
 && #strings.contains(#authentication.principal.authorities,'ADMIN')} ?
 'footer-admin' : 'footer'"/>
-
-<!--<div th:replace="footer :: footer"/>-->
+    <!--<div sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/footer:: footer-admin"/>-->
+    <!--<div sec:authorize="hasAuthority('USER')" th:replace="fragments/footer:: footer"/>-->
+</div>
 </body>
 </html>

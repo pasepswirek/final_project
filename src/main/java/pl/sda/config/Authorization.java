@@ -1,4 +1,4 @@
-package pl.sda.bussiness;
+package pl.sda.config;
 
 
 import org.springframework.security.core.context.SecurityContextHolder;

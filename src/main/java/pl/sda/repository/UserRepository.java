@@ -18,7 +18,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User u where u.username like %:username% ")
     List<User> findByUsername(String username);
 
-    Optional<User> findUserByUsername(String username);
+//    Optional<User> findUserByUsername( String username);
+
+    User findUserByUsername(String username);
 
     User findUserById(Long id);
 

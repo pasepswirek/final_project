@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <th:block th:insert="~{fragments/head :: link}"></th:block>
+    <th:block th:insert="~{fragments/head:: head/script}"></th:block>
+    <link rel="stylesheet" href="/css/index.css"/>
 
-<!--    <div th:fragment="header-css"/>-->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
-              id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <link rel="stylesheet" href="/css/index.css"/>
-
-
-    <title>Portal aukcyjny</title>
 </head>
 <body>
 <div th:fragment="header">
@@ -26,11 +19,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
+                    <li sec:authorize = "hasAuthority('USER')">
                         <a href="/" th:href="@{/userHome}" class="text-info">Home</a>
                     </li>
+                    <li sec:authorize = "hasAuthority('ADMIN')">
+                        <a href="/" th:href="@{/adminHome}" class="text-info">Home</a>
+                    </li>
 
-                    <li>
+                    <li >
                         <a href="/" th:href="@{/userPanel}" class="text-info">User Panel</a>
                     </li>
                     <li>
@@ -39,17 +35,22 @@
                     <li>
                         <a href="/" th:href="@{/searchAuction}" class="text-info">Search auction</a>
                     </li>
+                    <li sec:authorize = "hasAuthority('ADMIN')">
+                        <a href="/" th:href="@{/editUsers}" class="text-info">Edit users</a>
+                    </li>
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
-                    <!--                    <li>-->
-                    <!--                    <img th:if="${#authentication.principal.image}"-->
-                    <!--                        <img src="${user.avatar}" width="50" height="50"  />-->
-                    <!--                    <img th:src="*{'/img/' + user.user_id}" width="50" height="50"/>-->
-                    <!--                    </li>-->
+<!--                                        <li>-->
+<!--&lt;!&ndash;                                        <img th:if="${#authentication.principal.image}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <img src="${user.avatar}" width="50" height="50"  />&ndash;&gt;-->
+<!--                                        <img  th:src="@{/images/icon.png}" width="40" height="40"/>-->
+<!--                                        </li>-->
                     <li>
                         Hello: <span th:text="${#authentication.name}"></span>
-                        Role: <span sec:authentication="principal.authorities"></span>
+                        &nbsp; <img  th:src="@{/images/icon.png}" width="40" height="40"/>
+<!--                        Role:  <span sec:authentication="principal.authorities">Roles</span>-->
                     </li>
                     <li>
                         <a th:href="@{/logout}">Logout</a>

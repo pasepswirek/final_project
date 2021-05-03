@@ -32,7 +32,8 @@ public class UserValidator {
     }
 
     private boolean checkUserAlreadyExists(UserDto dto) {
-        return userRepository.findUserByUsername(dto.getUsername()).isPresent();
+        return userRepository.findUserByUsername(dto.getUsername())!=null;
+
     }
 
     private boolean checkPasswordsNotEquals(UserDto dto) {

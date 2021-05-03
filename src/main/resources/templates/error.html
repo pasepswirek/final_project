@@ -1,11 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-<!--    <div th:replace="header :: header-css"/>-->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
-          id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <th:block th:insert="~{fragments/head :: link}"></th:block>
+    <th:block th:insert="~{fragments/head:: head/script}"></th:block>
     <link rel="stylesheet" href="/css/index.css"/>
     <title>Error</title>
 </head>
@@ -15,11 +12,12 @@
 
 <div class="container">
 
-    <div class="starter-template" sec:authorize="isAuthenticated()">
+    <div class="starter-template" sec:authorize="!isAuthenticated()">
         <h1>403 - Access is denied</h1>
         <div th:inline="text">Hello,
             <span th:text="${#authentication.name}"></span>
-            you do not have permission to access this page.</div>
+            you do not have permission to access this page.
+        </div>
     </div>
 
 </div>

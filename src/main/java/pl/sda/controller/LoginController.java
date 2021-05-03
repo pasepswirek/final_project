@@ -37,7 +37,7 @@ public class LoginController {
                                   Model model)
     {
 //        User user1 = userRepository.findUserByUsername(username);
-        User user = userRepository.findUserByUsername(dto.getUsername()).get();
+        User user = userRepository.findUserByUsername(dto.getUsername());
 
         if(user.getStatus().equals("BLOCKED")){
         model.addAttribute("accountBlocking", BLOCKED_ACCOUNT);

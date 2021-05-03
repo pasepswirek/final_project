@@ -2,31 +2,19 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 
+        <title th:replace = "~{fragments/head :: title}">Title</title>
+
+    <th:block th:insert="~{fragments/head :: link}"></th:block>
+
+    <th:block th:insert="~{fragments/head:: head/script}"></th:block>
+
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!--    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>-->
-<!--    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>-->
-<!--    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>-->
-<!--&lt;!&ndash;    <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>&ndash;&gt;-->
-<!--    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>-->
-<!--    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
-<!--    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>-->
-<!--    <script th:src="@{assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>-->
-
-<!--    <script>-->
-<!--    $('.input-group.date').datepicker({-->
-<!--        autoclose: true,-->
-<!--        todayHighlight: true-->
-<!--    });-->
-
-<!--    </script>-->
 
     <link rel="stylesheet" href="/css/register.css"/>
-<!--    <div th:replace="header :: header-css"/>-->
 
-    <meta charset="UTF-8">
-    <title>Portal aukcyjny</title>
+<!--    <title>Portal aukcyjny</title>-->
 </head>
 <body>
 <div th:replace="header :: header"/>
@@ -117,7 +105,9 @@
     </div>
 </div>
 
-
+<div th:replace="fragments/footer:: ${ #authorization.expression('isAuthenticated()')
+&& #strings.contains(#authentication.principal.authorities,'ADMIN')} ?
+'footer-admin' : 'footer'"/>
 
 </body>
 </html>

@@ -4,15 +4,16 @@ package pl.sda.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring5.SpringTemplateEngine;
+import pl.sda.bussiness.impl.UserDetailsServiceImpl;
 
 import javax.sql.DataSource;
 
@@ -20,30 +21,54 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
-    @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password("{noop}user").roles("USER");
-//        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
-//        auth.inMemoryAuthentication().withUser("dba").password("{noop}dba").roles("DBA");
-        auth.jdbcAuthentication()
-                .usersByUsernameQuery("SELECT u.username, u.password,1 FROM user u WHERE u.username=?")
-                .authoritiesByUsernameQuery("SELECT u.username, r.name, 1 " +
-                        "FROM user u " +
-                        "INNER JOIN user_role ur ON ur.user_id = u.user_id " +
-                        "INNER JOIN role r ON r.role_id = ur.role_id " +
-                        "WHERE u.username=?")
-                .dataSource(dataSource)
-                .rolePrefix("ROLE_");
-//                .passwordEncoder(bCryptPasswordEncoder);
-
+    public SecurityConfig(DataSource dataSource, AuthenticationSuccessHandler authenticationSuccessHandler) {
+        this.dataSource = dataSource;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider()).userDetailsService(userDetailsService());
+    }
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+////        auth.inMemoryAuthentication()
+////                .withUser("user").password("{noop}user").roles("USER");
+////        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
+////        auth.inMemoryAuthentication().withUser("dba").password("{noop}dba").roles("DBA");
+//        auth.jdbcAuthentication()
+//                .usersByUsernameQuery("SELECT u.username, u.password,1 FROM user u WHERE u.username=?")
+//                .authoritiesByUsernameQuery("SELECT u.username, r.name, 1 " +
+//                        "FROM user u " +
+//                        "INNER JOIN user_role ur ON ur.user_id = u.user_id " +
+//                        "INNER JOIN role r ON r.role_id = ur.role_id " +
+//                        "WHERE u.username=?")
+//                .dataSource(dataSource)
+//                .rolePrefix("ROLE_");
+////                .passwordEncoder(bCryptPasswordEncoder);
+//
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -53,7 +78,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dba/**").access("hasRole('ADMIN') or hasRole('DBA')")
                 .antMatchers("/userHome/**").hasRole("USER")
                 .antMatchers("/","/login**", "/register**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().accessDeniedPage("/error");
 //                .and().csrf().disable();
 
         http.formLogin()
@@ -83,10 +110,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register**", "/resources/**", "/static/**", "/css/**", "/js/**");
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
 //    @Bean
 //    public SpringTemplateEngine templateEngine() {

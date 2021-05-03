@@ -43,6 +43,7 @@ public class UserDto {
     private AccountType type;
     private Long id;
     private String base64EncodedImage;
+    private boolean enabled;
 
     @Override
     public String toString() {

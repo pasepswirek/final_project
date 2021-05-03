@@ -11,9 +11,7 @@ import pl.sda.model.User;
 import pl.sda.repository.RoleRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class UserAssembler {
@@ -63,9 +61,10 @@ public class UserAssembler {
         user.setAddress(userDto.getAddress());
         user.setAvatar(userDto.getAvatarImage().isEmpty() || userDto.getAvatarImage()==null ? null :
                 userDto.getAvatarImage().getBytes());
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.findByName("USER"));
         user.setRoles(roles);
+        user.setEnabled(true);
         return user;
     }
 }

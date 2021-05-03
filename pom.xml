@@ -73,11 +73,11 @@
 
 		</dependency>
 
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring4</artifactId>
+<!--		<dependency>-->
+<!--			<groupId>org.thymeleaf</groupId>-->
+<!--			<artifactId>thymeleaf-spring4</artifactId>-->
 
-		</dependency>
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.thymeleaf</groupId>

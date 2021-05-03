@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>default</title>
@@ -7,6 +7,8 @@
 <body>
 
 strona default
-
+<div th:replace="fragments/footer:: ${ #authorization.expression('isAuthenticated()')
+&& #strings.contains(#authentication.principal.authorities,'ADMIN')} ?
+'footer-admin' : 'footer'"/>
 </body>
 </html>

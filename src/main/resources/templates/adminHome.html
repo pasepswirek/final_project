@@ -12,11 +12,13 @@
 <!--    <div th:replace="header :: header-css"/>-->
 </head>
 <body>
-<div th:replace="headerAdmin::headerAdmin"/>
+<div th:replace="header::header"/>
 Admin page
 
 
-
+<div th:replace="fragments/footer:: ${ #authorization.expression('isAuthenticated()')
+&& #strings.contains(#authentication.principal.authorities,'ADMIN')} ?
+'footer-admin' : 'footer'"/>
 
 </body>
 </html>
