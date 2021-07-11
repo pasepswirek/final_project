@@ -36,7 +36,6 @@ public class LoginController {
     public String loginValidation(@RequestParam("username") String username, @RequestParam("userDto") UserDto dto,
                                   Model model)
     {
-//        User user1 = userRepository.findUserByUsername(username);
         User user = userRepository.findUserByUsername(dto.getUsername());
 
         if(user.getStatus().equals("BLOCKED")){
